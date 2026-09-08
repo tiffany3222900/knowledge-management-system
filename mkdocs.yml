@@ -1,0 +1,89 @@
+site_name: Printer Maintenance Manual
+site_description: Enterprise-grade daily maintenance and troubleshooting guide for office printers
+site_author: IT Operations Team
+site_url: https://tiffany3222900.github.io/knowledge-management-system/
+
+repo_name: tiffany3222900/knowledge-management-system
+repo_url: https://github.com/tiffany3222900/knowledge-management-system
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+    - content.action.view
+    - toc.follow
+    - toc.integrate
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/printer-wireless
+
+plugins:
+  - search
+  - tags
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Daily Checklist: daily-checklist.md
+  - Cleaning & Care: cleaning.md
+  - Consumables: consumables.md
+  - Paper Handling: paper-handling.md
+  - Troubleshooting: troubleshooting.md
+  - Safety: safety.md
+  - FAQ: faq.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/tiffany3222900
+  generator: false
+
+copyright: Copyright &copy; 2026 IT Operations Team. Licensed under CC BY-NC-SA 4.0.
