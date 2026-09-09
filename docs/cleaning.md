@@ -24,7 +24,7 @@ Regular cleaning prevents the most common printer problems: paper jams, streaky 
 5. Dust the ventilation slots with compressed air (hold can upright, 15 cm away).
 6. Plug back in and power on.
 
-!!! caution "Never spray directly"
+!!! Caution "Never spray directly"
     Never spray cleaning solution directly onto the printer. Always apply to the cloth first, and ensure the cloth is damp, not dripping.
 
 ---
