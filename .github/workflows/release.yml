@@ -1,0 +1,65 @@
+name: Release PDF
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag name for the release (e.g. v1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build PDF and Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs-material mkdocs-print-site-plugin playwright
+
+      - name: Install Playwright Chromium
+        run: playwright install chromium --with-deps
+
+      - name: Build site
+        run: mkdocs build
+
+      - name: Export PDF
+        run: python export_pdf.py
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Printer Maintenance Manual ${{ github.ref_name }}
+          body: |
+            ## Printer Maintenance Manual — ${{ github.ref_name }}
+
+            Automated PDF release generated from the MkDocs documentation site.
+
+            **Live site**: https://tiffany3222900.github.io/knowledge-management-system/
+
+            ### What's in this release
+            - Full PDF manual (A4, ~50 pages)
+            - All 9 documentation sections compiled
+            - Table of contents, page numbers, headers/footers
+
+            ### Files
+            - `Printer_Maintenance_Manual.pdf` — the complete manual
+          files: Printer_Maintenance_Manual.pdf
+          fail_on_unmatched_files: true
+          generate_release_notes: true
