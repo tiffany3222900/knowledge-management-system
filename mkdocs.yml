@@ -46,6 +46,13 @@ theme:
 plugins:
   - search
   - tags
+  - print-site:
+      add_to_navigation: true
+      print_page_title: 'Printer Maintenance Manual'
+      add_table_of_contents: true
+      enumerate_headings: true
+      enumerate_figures: true
+      add_full_urls: false
 
 markdown_extensions:
   - admonition
