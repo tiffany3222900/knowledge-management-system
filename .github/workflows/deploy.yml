@@ -1,0 +1,97 @@
+name: Deploy Docs and PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'export_pdf.py'
+      - '.github/workflows/**'
+  workflow_dispatch:  # allow manual trigger
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # ---------------------------------------------------------------
+  # Job 1: Build MkDocs site and deploy to GitHub Pages
+  # ---------------------------------------------------------------
+  deploy-site:
+    name: Deploy Site to GitHub Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs-material mkdocs-print-site-plugin
+
+      - name: Build site
+        run: mkdocs build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # ---------------------------------------------------------------
+  # Job 2: Build PDF and upload as workflow artifact
+  # ---------------------------------------------------------------
+  build-pdf:
+    name: Build PDF Manual
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs-material mkdocs-print-site-plugin playwright
+
+      - name: Install Playwright Chromium
+        run: playwright install chromium --with-deps
+
+      - name: Build site
+        run: mkdocs build
+
+      - name: Export PDF
+        run: python export_pdf.py
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Printer_Maintenance_Manual
+          path: Printer_Maintenance_Manual.pdf
+          retention-days: 30
