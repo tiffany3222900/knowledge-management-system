@@ -31,7 +31,7 @@ jobs:
       - name: Run AI style check
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_MODEL: llama-3.3-70b-specdec
+          GROQ_MODEL: mixtral-8x7b-32768
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           # Set to "true" to block merge on D-rated reviews.
