@@ -157,3 +157,5 @@ The fuser uses heat and pressure to bond toner to paper. It requires careful han
 ---
 
 *Next: [Consumables](consumables.md)*
+
+<!-- test trigger -->
