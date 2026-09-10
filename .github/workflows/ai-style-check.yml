@@ -1,0 +1,40 @@
+name: AI Writing Style Check
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**/*.md'
+  workflow_dispatch:  # allow manual trigger
+
+permissions:
+  contents: read
+  pull-requests: write   # needed to post PR comments
+
+jobs:
+  style-check:
+    name: AI Style Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests PyGithub
+
+      - name: Run AI style check
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4o-mini
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          # Set to "true" to block merge on D-rated reviews.
+          # Leave as "false" for advisory-only mode.
+          FAIL_ON_CRITICAL: 'false'
+        run: python .github/scripts/ai_style_check.py
