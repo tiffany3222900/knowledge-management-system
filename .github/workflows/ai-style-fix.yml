@@ -1,0 +1,39 @@
+name: AI Style Auto-Fix
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Target branch to fix (default: main)'
+        required: false
+        default: 'main'
+
+permissions:
+  contents: write      # needed to create branch + commit
+  pull-requests: write # needed to create PR
+
+jobs:
+  auto-fix:
+    name: AI Auto-Fix & Open PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests PyGithub
+
+      - name: Run AI auto-fix
+        env:
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          SILICONFLOW_MODEL: Qwen/Qwen2.5-72B-Instruct
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_BRANCH: ${{ github.event.inputs.branch }}
+        run: python .github/scripts/ai_style_fix.py --branch "${{ github.event.inputs.branch }}"
