@@ -2,15 +2,18 @@
 AI Writing Style Check for MkDocs documentation.
 
 Runs on pull requests that change docs/**/*.md files.
-Fetches changed files, sends them to Google Gemini for style review,
+Fetches changed files, sends them to Groq (Llama 3.3) for style review,
 and posts the results as a PR comment.
+
+Supports both pull_request and workflow_dispatch triggers.
+For workflow_dispatch, auto-finds the open PR for the branch.
 
 Mode: "advisory" (default) — only comments, never fails the check.
 Set FAIL_ON_CRITICAL=true in workflow env to enable hard gate mode.
 
-Requires GEMINI_API_KEY in repo secrets.
-Get a free key at: https://aistudio.google.com/apikey
-Free tier: 1500 requests/day, no credit card required.
+Requires GROQ_API_KEY in repo secrets.
+Get a free key at: https://console.groq.com/keys
+Free tier: 14,400 requests/day, no credit card required.
 """
 import os
 import sys
@@ -87,51 +90,74 @@ def get_changed_md_files(repo, pr_number):
     return files
 
 
-def call_llm(filepath, content):
-    """Call Google Gemini API (free tier, 1500 req/day)."""
-    api_key = os.environ.get("GEMINI_API_KEY")
-    model = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
+def find_pr_for_branch(repo, branch):
+    """Find the open PR for a given branch (for workflow_dispatch triggers)."""
+    pulls = repo.get_pulls(state="open", head=f"{repo.owner.login}:{branch}")
+    for pr in pulls:
+        return pr
+    return None
 
-    url = (
-        f"https://generativelanguage.googleapis.com/v1beta/models/"
-        f"{model}:generateContent?key={api_key}"
-    )
+
+def call_llm(filepath, content):
+    """Call Groq API (OpenAI-compatible, free tier 14400 req/day)."""
+    api_key = os.environ.get("GROQ_API_KEY")
+    model = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
+
+    if not api_key:
+        raise RuntimeError("GROQ_API_KEY is not set")
+
+    print(f"  Calling Groq {model}...")
 
     resp = requests.post(
-        url,
-        headers={"Content-Type": "application/json"},
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
         json={
-            "system_instruction": {
-                "parts": [{"text": STYLE_GUIDE}]
-            },
-            "contents": [
+            "model": model,
+            "messages": [
+                {"role": "system", "content": STYLE_GUIDE},
                 {
                     "role": "user",
-                    "parts": [
-                        {"text": f"Review this file: {filepath}\n\n---\n{content}\n---"}
-                    ],
-                }
+                    "content": f"Review this file: {filepath}\n\n---\n{content}\n---",
+                },
             ],
-            "generationConfig": {
-                "temperature": 0.3,
-                "maxOutputTokens": 1500,
-            },
+            "temperature": 0.3,
+            "max_tokens": 1500,
         },
         timeout=90,
     )
-    resp.raise_for_status()
-    return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+
+    if resp.status_code != 200:
+        print(f"  API Error {resp.status_code}: {resp.text}")
+        raise RuntimeError(f"Groq API {resp.status_code}: {resp.text[:500]}")
+
+    return resp.json()["choices"][0]["message"]["content"]
 
 
 def main():
     token = os.environ.get("GITHUB_TOKEN")
     repo_name = os.environ.get("GITHUB_REPOSITORY")
-    pr_number = int(os.environ.get("PR_NUMBER"))
     fail_on_critical = os.environ.get("FAIL_ON_CRITICAL", "false").lower() == "true"
 
     g = Github(token)
     repo = g.get_repo(repo_name)
-    pr = repo.get_pull(pr_number)
+
+    # Resolve PR number: from env (pull_request event) or auto-find (workflow_dispatch)
+    pr_number_str = os.environ.get("PR_NUMBER")
+    if pr_number_str:
+        pr_number = int(pr_number_str)
+        pr = repo.get_pull(pr_number)
+    else:
+        branch = os.environ.get("GITHUB_HEAD_REF") or os.environ.get("GITHUB_REF_NAME")
+        print(f"No PR_NUMBER set, auto-finding PR for branch: {branch}")
+        pr = find_pr_for_branch(repo, branch)
+        if not pr:
+            print(f"ERROR: No open PR found for branch {branch}")
+            sys.exit(1)
+        pr_number = pr.number
+        print(f"Found PR #{pr_number}: {pr.title}")
 
     changed = get_changed_md_files(repo, pr_number)
     if not changed:
