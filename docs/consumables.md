@@ -180,7 +180,7 @@ A maintenance kit typically includes:
 Typically every 100,000–200,000 pages, depending on the printer model. Check the maintenance kit life counter in the printer's configuration page.
 
 !!! warning "Professional installation recommended"
-    Maintenance kit replacement involves disassembling significant portions of the printer. Schedule this with an authorized service provider to avoid damage and ensure warranty coverage.
+    Maintenance kit replacement involves multiple disassembling significant portions of the printer. Schedule this with an authorized service provider to avoid damage and ensure warranty coverage.
 
 ---
 
