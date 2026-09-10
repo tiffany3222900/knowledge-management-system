@@ -1,4 +1,4 @@
-# Printer Maintenance Manual
+﻿# Printer Maintenance Manual
 
 **A practical guide to keeping your office printers reliable, efficient, and long-lasting.**
 
@@ -30,11 +30,11 @@ This manual provides standardized procedures for the daily operation, maintenanc
 
 ## Key Principles
 
-1. **Preventive over reactive** — routine maintenance costs far less than emergency repairs.
-2. **Clean hands, clean machine** — always power off and unplug before internal cleaning.
-3. **Use approved supplies** — third-party toner and paper can cause damage and void warranties.
-4. **Log every action** — record maintenance in the service log for trend analysis.
-5. **When in doubt, escalate** — do not disassemble components beyond this manual's scope.
+1. **Preventive over reactive** 鈥?routine maintenance costs far less than emergency repairs.
+2. **Clean hands, clean machine** 鈥?always power off and unplug before internal cleaning.
+3. **Use approved supplies** 鈥?third-party toner and paper can cause damage and void warranties.
+4. **Log every action** 鈥?record maintenance in the service log for trend analysis.
+5. **When in doubt, escalate** 鈥?do not disassemble components beyond this manual's scope.
 
 ---
 
@@ -62,4 +62,4 @@ Hey guys, here are some quick tips to get you started. You can just follow these
 
 ---
 
-*Last updated: 2026-09-08*
+*Last updated: 2026-09-10*
