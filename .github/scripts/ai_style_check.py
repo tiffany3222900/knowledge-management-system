@@ -2,11 +2,15 @@
 AI Writing Style Check for MkDocs documentation.
 
 Runs on pull requests that change docs/**/*.md files.
-Fetches changed files, sends them to an LLM for style review,
+Fetches changed files, sends them to Google Gemini for style review,
 and posts the results as a PR comment.
 
 Mode: "advisory" (default) — only comments, never fails the check.
 Set FAIL_ON_CRITICAL=true in workflow env to enable hard gate mode.
+
+Requires GEMINI_API_KEY in repo secrets.
+Get a free key at: https://aistudio.google.com/apikey
+Free tier: 1500 requests/day, no credit card required.
 """
 import os
 import sys
@@ -84,33 +88,39 @@ def get_changed_md_files(repo, pr_number):
 
 
 def call_llm(filepath, content):
-    """Call OpenAI Chat Completions API."""
-    api_key = os.environ.get("OPENAI_API_KEY")
-    model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+    """Call Google Gemini API (free tier, 1500 req/day)."""
+    api_key = os.environ.get("GEMINI_API_KEY")
+    model = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
+
+    url = (
+        f"https://generativelanguage.googleapis.com/v1beta/models/"
+        f"{model}:generateContent?key={api_key}"
+    )
 
     resp = requests.post(
-        "https://api.openai.com/v1/chat/completions",
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
+        url,
+        headers={"Content-Type": "application/json"},
         json={
-            "model": model,
-            "messages": [
-                {"role": "system", "content": STYLE_GUIDE},
+            "system_instruction": {
+                "parts": [{"text": STYLE_GUIDE}]
+            },
+            "contents": [
                 {
                     "role": "user",
-                    "content": f"Review this file: {filepath}\n\n"
-                    f"---\n{content}\n---",
-                },
+                    "parts": [
+                        {"text": f"Review this file: {filepath}\n\n---\n{content}\n---"}
+                    ],
+                }
             ],
-            "temperature": 0.3,
-            "max_tokens": 1500,
+            "generationConfig": {
+                "temperature": 0.3,
+                "maxOutputTokens": 1500,
+            },
         },
         timeout=90,
     )
     resp.raise_for_status()
-    return resp.json()["choices"][0]["message"]["content"]
+    return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
 
 
 def main():
