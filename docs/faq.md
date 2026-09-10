@@ -8,7 +8,7 @@
 
 ### Q: Can I use third-party (compatible) toner cartridges?
 
-**A:** While third-party toner is cheaper, it carries several risks:
+**A:** While third-party toner is cheaper, it carries the following risks:
 - Print quality may be inconsistent
 - Toner powder formulation can cause excessive dust and premature wear
 - Some third-party cartridges leak and damage the fuser
