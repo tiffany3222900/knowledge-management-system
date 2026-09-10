@@ -2,7 +2,7 @@
 AI Writing Style Check for MkDocs documentation.
 
 Runs on pull requests that change docs/**/*.md files.
-Fetches changed files, sends them to Google Gemini for style review,
+Fetches changed files, sends them to Groq (Llama 3.3) for style review,
 and posts the results as a PR comment.
 
 Supports both pull_request and workflow_dispatch triggers.
@@ -11,9 +11,9 @@ For workflow_dispatch, auto-finds the open PR for the branch.
 Mode: "advisory" (default) — only comments, never fails the check.
 Set FAIL_ON_CRITICAL=true in workflow env to enable hard gate mode.
 
-Requires GEMINI_API_KEY in repo secrets.
-Get a free key at: https://aistudio.google.com/apikey
-Free tier: 1500 requests/day, no credit card required.
+Requires GROQ_API_KEY in repo secrets.
+Get a free key at: https://console.groq.com/keys
+Free tier: 14,400 requests/day, no credit card required.
 """
 import os
 import sys
@@ -99,51 +99,41 @@ def find_pr_for_branch(repo, branch):
 
 
 def call_llm(filepath, content):
-    """Call Google Gemini API (free tier, 1500 req/day)."""
-    api_key = os.environ.get("GEMINI_API_KEY")
-    model = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
-    api_version = os.environ.get("GEMINI_API_VERSION", "v1")
+    """Call Groq API (OpenAI-compatible, free tier 14400 req/day)."""
+    api_key = os.environ.get("GROQ_API_KEY")
+    model = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
 
     if not api_key:
-        raise RuntimeError("GEMINI_API_KEY is not set")
+        raise RuntimeError("GROQ_API_KEY is not set")
 
-    url = (
-        f"https://generativelanguage.googleapis.com/{api_version}/models/"
-        f"{model}:generateContent?key={api_key}"
-    )
-
-    print(f"  Calling Gemini {model} ({api_version})...")
+    print(f"  Calling Groq {model}...")
 
     resp = requests.post(
-        url,
-        headers={"Content-Type": "application/json"},
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
         json={
-            "system_instruction": {
-                "parts": [{"text": STYLE_GUIDE}]
-            },
-            "contents": [
+            "model": model,
+            "messages": [
+                {"role": "system", "content": STYLE_GUIDE},
                 {
                     "role": "user",
-                    "parts": [
-                        {"text": f"Review this file: {filepath}\n\n---\n{content}\n---"}
-                    ],
-                }
+                    "content": f"Review this file: {filepath}\n\n---\n{content}\n---",
+                },
             ],
-            "generationConfig": {
-                "temperature": 0.3,
-                "maxOutputTokens": 1500,
-            },
+            "temperature": 0.3,
+            "max_tokens": 1500,
         },
         timeout=90,
     )
 
     if resp.status_code != 200:
-        # Print full error details for debugging
         print(f"  API Error {resp.status_code}: {resp.text}")
-        raise RuntimeError(f"Gemini API {resp.status_code}: {resp.text[:500]}")
+        raise RuntimeError(f"Groq API {resp.status_code}: {resp.text[:500]}")
 
-    data = resp.json()
-    return data["candidates"][0]["content"]["parts"][0]["text"]
+    return resp.json()["choices"][0]["message"]["content"]
 
 
 def main():
