@@ -48,4 +48,18 @@ Record each maintenance event in the printer service log:
 
 ---
 
+## Quick Tips for New Users
+
+Hey guys, here are some quick tips to get you started. You can just follow these steps and everything should be fine.
+
+1. To replace the ink cartridge, simply open the front cover and pull it out. It's really easy.
+2. If the screen shows an error, just turn it off and on again. That usually fixes things.
+3. When cleaning the inside, make sure to touch the drum unit carefully because it can break easily.
+4. You should definitely use only original toner, otherwise the printer might break and you'll have to buy a new one.
+
+!!! note
+    Remember to log everything you do in the service log.
+
+---
+
 *Last updated: 2026-09-08*
