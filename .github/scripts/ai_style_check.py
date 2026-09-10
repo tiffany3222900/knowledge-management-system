@@ -91,11 +91,17 @@ def call_llm(filepath, content):
     """Call Google Gemini API (free tier, 1500 req/day)."""
     api_key = os.environ.get("GEMINI_API_KEY")
     model = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
+    api_version = os.environ.get("GEMINI_API_VERSION", "v1")
+
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY is not set")
 
     url = (
-        f"https://generativelanguage.googleapis.com/v1beta/models/"
+        f"https://generativelanguage.googleapis.com/{api_version}/models/"
         f"{model}:generateContent?key={api_key}"
     )
+
+    print(f"  Calling Gemini {model} ({api_version})...")
 
     resp = requests.post(
         url,
@@ -119,8 +125,14 @@ def call_llm(filepath, content):
         },
         timeout=90,
     )
-    resp.raise_for_status()
-    return resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+
+    if resp.status_code != 200:
+        # Print full error details for debugging
+        print(f"  API Error {resp.status_code}: {resp.text}")
+        raise RuntimeError(f"Gemini API {resp.status_code}: {resp.text[:500]}")
+
+    data = resp.json()
+    return data["candidates"][0]["content"]["parts"][0]["text"]
 
 
 def main():
