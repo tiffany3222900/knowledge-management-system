@@ -101,7 +101,7 @@ def find_pr_for_branch(repo, branch):
 def call_llm(filepath, content):
     """Call Groq API (OpenAI-compatible, free tier 14400 req/day)."""
     api_key = os.environ.get("GROQ_API_KEY")
-    model = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
+    model = os.environ.get("GROQ_MODEL", "llama-3.1-70b-versatile")
 
     if not api_key:
         raise RuntimeError("GROQ_API_KEY is not set")
