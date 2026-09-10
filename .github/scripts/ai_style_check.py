@@ -5,6 +5,9 @@ Runs on pull requests that change docs/**/*.md files.
 Fetches changed files, sends them to Google Gemini for style review,
 and posts the results as a PR comment.
 
+Supports both pull_request and workflow_dispatch triggers.
+For workflow_dispatch, auto-finds the open PR for the branch.
+
 Mode: "advisory" (default) — only comments, never fails the check.
 Set FAIL_ON_CRITICAL=true in workflow env to enable hard gate mode.
 
@@ -87,6 +90,14 @@ def get_changed_md_files(repo, pr_number):
     return files
 
 
+def find_pr_for_branch(repo, branch):
+    """Find the open PR for a given branch (for workflow_dispatch triggers)."""
+    pulls = repo.get_pulls(state="open", head=f"{repo.owner.login}:{branch}")
+    for pr in pulls:
+        return pr
+    return None
+
+
 def call_llm(filepath, content):
     """Call Google Gemini API (free tier, 1500 req/day)."""
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -138,12 +149,25 @@ def call_llm(filepath, content):
 def main():
     token = os.environ.get("GITHUB_TOKEN")
     repo_name = os.environ.get("GITHUB_REPOSITORY")
-    pr_number = int(os.environ.get("PR_NUMBER"))
     fail_on_critical = os.environ.get("FAIL_ON_CRITICAL", "false").lower() == "true"
 
     g = Github(token)
     repo = g.get_repo(repo_name)
-    pr = repo.get_pull(pr_number)
+
+    # Resolve PR number: from env (pull_request event) or auto-find (workflow_dispatch)
+    pr_number_str = os.environ.get("PR_NUMBER")
+    if pr_number_str:
+        pr_number = int(pr_number_str)
+        pr = repo.get_pull(pr_number)
+    else:
+        branch = os.environ.get("GITHUB_HEAD_REF") or os.environ.get("GITHUB_REF_NAME")
+        print(f"No PR_NUMBER set, auto-finding PR for branch: {branch}")
+        pr = find_pr_for_branch(repo, branch)
+        if not pr:
+            print(f"ERROR: No open PR found for branch {branch}")
+            sys.exit(1)
+        pr_number = pr.number
+        print(f"Found PR #{pr_number}: {pr.title}")
 
     changed = get_changed_md_files(repo, pr_number)
     if not changed:
