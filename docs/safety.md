@@ -46,7 +46,7 @@ Printer maintenance involves electrical, thermal, mechanical, and chemical hazar
 
 The fuser is the hottest component in a laser printer, operating at **180–220 °C (356–428 °F)**.
 
-- **Always wait 30 minutes** after powering off before touching the fuser area.
+- Always wait 30 minutes after powering off before touching the fuser area.
 - Even after 30 minutes, the fuser may still be warm — touch cautiously.
 - Use the designated handles or levers; never grab the fuser rollers directly.
 - If you smell burning or see smoke, power off immediately, unplug, and evacuate the area if necessary.
