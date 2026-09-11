@@ -1,8 +1,9 @@
+---
 # Troubleshooting Guide
 
 ## Overview
 
-This section provides symptom-to-solution reference for the most common printer problems. Problems are organized by category. Always start with the simplest solution (power cycle) and work toward more complex fixes.
+This section provides symptom-to-solution reference for the most common printer problems. Problems are organized by category. Always start with the simplest solution, such as a power cycle, and progress to more complex fixes.
 
 ---
 
@@ -15,7 +16,7 @@ Before any advanced troubleshooting, perform a power cycle. This resolves approx
 3. Wait **60 seconds** — this allows capacitors to discharge and memory to clear.
 4. While waiting, check that all covers are closed and no paper is jammed.
 5. Plug the power cable back in.
-6. Power on and wait for the printer to reach "Ready" state.
+6. Power on and wait for the printer to reach the "Ready" state.
 7. Print a test page.
 
 !!! note "Network printers"
@@ -45,7 +46,7 @@ Before any advanced troubleshooting, perform a power cycle. This resolves approx
 | White vertical line | Toner clog or dirty developer roller | Replace toner cartridge |
 | Repeating spots at regular intervals | Drum damage or fuser roller damage | Measure interval; replace drum or fuser |
 | Streaks only on scans/copies | Dirty scanner glass or ADF glass strip | Clean scanner glass (see [Cleaning](cleaning.md)) |
-| Streaks in same position on all prints | Dirty corona wire or primary charge roller | Clean per manufacturer instructions; replace drum |
+| Streaks in the same position on all prints | Dirty corona wire or primary charge roller | Clean per manufacturer instructions; replace drum |
 
 ### Smudges or Toner Rubs Off
 
@@ -231,14 +232,14 @@ This is a firmware crash, often caused by a corrupted print job.
 
 Contact IT support or an authorized service provider when:
 
-- [ ] Error codes persist after power cycle and basic troubleshooting
-- [ ] Print quality does not improve after toner, drum, and cleaning
-- [ ] Recurring jams (2+ per day) after roller cleaning
-- [ ] Any hardware error (fuser, laser scanner, motor, power supply)
-- [ ] Physical damage to the printer or accessories
-- [ ] The printer is under warranty — do not open sealed components (voids warranty)
-- [ ] Firmware update fails or bricks the device
-- [ ] Network issues that cannot be resolved with basic checks
+- Error codes persist after power cycle and basic troubleshooting
+- Print quality does not improve after toner, drum, and cleaning
+- Recurring jams (2+ per day) after roller cleaning
+- Any hardware error (fuser, laser scanner, motor, power supply)
+- Physical damage to the printer or accessories
+- The printer is under warranty — do not open sealed components (voids warranty)
+- Firmware update fails or bricks the device
+- Network issues that cannot be resolved with basic checks
 
 ---
 
@@ -267,3 +268,5 @@ Start
 ---
 
 *Next: [Safety](safety.md)*
+
+---
