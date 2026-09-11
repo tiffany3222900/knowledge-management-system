@@ -1,3 +1,4 @@
+---
 # Consumables Management
 
 ## Overview
@@ -36,15 +37,15 @@ Order → Receive → Store → Install → Monitor → Replace → Dispose
 
 ### Procedure (Laser Printer)
 
-1. **Prepare** — Have the new cartridge ready. Shake it gently 5–6 times side to side to distribute toner evenly.
-2. **Power on** — the printer must be on for the cartridge to seat correctly.
-3. **Open the front cover** fully.
-4. **Remove the old cartridge** — grip the handle and pull straight out.
-5. **Prepare the new cartridge** — remove the protective seal by pulling the tab firmly in the direction indicated. Do not touch the drum surface.
-6. **Insert the new cartridge** — align the rails and push firmly until it clicks into place.
-7. **Close the front cover** — the printer will run a calibration cycle (15–60 seconds).
-8. **Print a test page** to confirm quality.
-9. **Dispose** of the old cartridge through the manufacturer's recycling program.
+1. Prepare — Have the new cartridge ready. Shake it gently 5–6 times side to side to distribute toner evenly.
+2. Power on the printer must be on for the cartridge to seat correctly.
+3. Open the front cover fully.
+4. Remove the old cartridge — grip the handle and pull straight out.
+5. Prepare the new cartridge — remove the protective seal by pulling the tab firmly in the direction indicated. Do not touch the drum surface.
+6. Insert the new cartridge — align the rails and push firmly until it clicks into place.
+7. Close the front cover — the printer will run a calibration cycle (15–60 seconds).
+8. Print a test page to confirm quality.
+9. Dispose of the old cartridge through the manufacturer's recycling program.
 
 !!! tip "Extend toner life"
     When the "Toner Low" message first appears, remove the cartridge, shake it gently side to side 5 times, and reinstall. This can yield 50–200 additional pages and buys time for a replacement to arrive.
@@ -80,7 +81,7 @@ The drum (photosensitive cylinder) is the component that transfers the toner ima
 5. Insert the new drum unit until it clicks.
 6. Reinstall the toner cartridge into the new drum.
 7. Close the front cover.
-8. **Reset the drum counter** — this is critical. The printer will not recognize the new drum unless the counter is reset via the control panel menu.
+8. Reset the drum counter — this is critical. The printer will not recognize the new drum unless the counter is reset via the control panel menu.
 9. Print a test page.
 
 !!! warning "Reset the counter"
@@ -122,7 +123,7 @@ The drum (photosensitive cylinder) is the component that transfers the toner ima
 3. Wait for the carriage to stop moving.
 4. Press down on the empty cartridge to release it, then pull it out.
 5. Remove the new cartridge from packaging and remove the protective tape from the nozzles.
-    - **Do not** touch the copper contacts or nozzle plate.
+    - Do not touch the copper contacts or nozzle plate.
 6. Insert the new cartridge into the correct slot (match color labels) and push up until it clicks.
 7. Close the access door.
 8. The printer will run an automatic priming cycle.
@@ -211,3 +212,5 @@ Track consumable stock with this template:
 ---
 
 *Next: [Paper Handling](paper-handling.md)*
+
+---
