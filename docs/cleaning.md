@@ -1,8 +1,9 @@
+---
 # Cleaning & Care
 
 ## Overview
 
-Regular cleaning prevents the most common printer problems: paper jams, streaky prints, feed errors, and premature component wear. This section covers all cleaning procedures from basic exterior wiping to internal component care.
+Regular cleaning helps prevent common printer problems such as paper jams, streaky prints, feed errors, and premature component wear. This section provides all cleaning procedures, from basic exterior wiping to internal component care.
 
 !!! danger "Before you begin"
     1. **Power off** the printer using the power button.
@@ -157,3 +158,5 @@ The fuser uses heat and pressure to bond toner to paper. It requires careful han
 ---
 
 *Next: [Consumables](consumables.md)*
+
+---
