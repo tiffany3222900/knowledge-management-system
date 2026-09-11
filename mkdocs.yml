@@ -5,47 +5,68 @@ site_url: https://tiffany3222900.github.io/knowledge-management-system/
 
 repo_name: tiffany3222900/knowledge-management-system
 repo_url: https://github.com/tiffany3222900/knowledge-management-system
+edit_uri: edit/main/docs/
 
 theme:
-  name: material                  # 核心：Material 主题，不是 GitHub 默认
+  name: material
   language: en
-  palette:                        # 明暗双色主题切换
+  palette:
     - scheme: default
-      primary: indigo             # 主色调：靛蓝色
+      primary: indigo
       accent: indigo
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
-    - scheme: slate               # 暗色模式
+    - scheme: slate
       primary: indigo
       accent: indigo
       toggle:
         icon: material/weather-night
         name: Switch to light mode
   features:
-    - navigation.tabs             # 顶部导航标签
-    - navigation.tabs.sticky      # 导航栏滚动时固定
-    - navigation.sections         # 左侧分组
-    - navigation.expand           # 默认展开目录
-    - navigation.path             # 面包屑路径
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
     - navigation.indexes
     - navigation.top
-    - search.suggest              # 搜索建议
-    - search.highlight            # 搜索高亮
+    - search.suggest
+    - search.highlight
     - search.share
-    - content.code.copy           # 代码复制按钮
+    - content.code.copy
     - content.code.annotate
     - content.action.edit
     - content.action.view
-    - toc.follow                  # 目录跟随滚动
-    - toc.integrate               # 目录集成到侧边栏
+    - toc.follow
+    - toc.integrate
   icon:
     repo: fontawesome/brands/github
-    logo: material/printer-wireless  # 网站图标（打印机）
+    logo: material/printer-wireless
 
 plugins:
   - search
   - tags
+  - i18n:
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: zh
+          name: 中文
+          build: true
+          nav_translations:
+            Home: 首页
+            Getting Started: 入门指南
+            Daily Checklist: 每日检查清单
+            Cleaning & Care: 清洁与保养
+            Consumables: 耗材管理
+            Paper Handling: 纸张处理
+            Troubleshooting: 故障排除
+            Safety: 安全指南
+            FAQ: 常见问题
+            Download PDF: 下载PDF
   - print-site:
       add_to_navigation: true
       print_page_title: 'Printer Maintenance Manual'

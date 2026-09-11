@@ -194,7 +194,7 @@ def main():
 
     # Post comment to PR
     comment = (
-        "## 馃 AI Writing Style Check\n\n"
+        "## [AI] Writing Style Check\n\n"
         + "\n\n---\n\n".join(results)
         + "\n\n---\n"
         + "_This is an automated advisory review. "
