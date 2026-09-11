@@ -1,3 +1,4 @@
+---
 # Printer Maintenance Manual
 
 **A practical guide to keeping your office printers reliable, efficient, and long-lasting.**
@@ -6,7 +7,7 @@
 
 ## Welcome
 
-This manual provides standardized procedures for the daily operation, maintenance, and troubleshooting of office printers. Following these guidelines consistently helps reduce downtime, extend hardware lifespan, improve print quality, and lower the total cost of ownership.
+This manual provides standardized procedures for the daily operation, maintenance, and troubleshooting of office printers. Consistently following these guidelines helps reduce downtime, extend hardware lifespan, improve print quality, and lower the total cost of ownership.
 
 !!! info "Audience"
     This document is intended for IT support staff, facility managers, and designated printer operators. End users may also refer to the **Paper Handling** and **Troubleshooting** sections for common issues.
@@ -49,3 +50,4 @@ Record each maintenance event in the printer service log:
 ---
 
 *Last updated: 2026-09-10*
+

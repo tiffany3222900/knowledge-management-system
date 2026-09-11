@@ -1,3 +1,4 @@
+---
 # Safety Guidelines
 
 ## Overview
@@ -8,7 +9,7 @@ Printer maintenance involves electrical, thermal, mechanical, and chemical hazar
 
 ## General Safety Principles
 
-1. **When in doubt, stop.** If a procedure feels unsafe or beyond your training, do not proceed — escalate to a qualified technician.
+1. **Stop if in doubt.** If a procedure feels unsafe or beyond your training, do not proceed — escalate to a qualified technician.
 2. **One person, one task.** Do not perform maintenance while another person is also working on the same printer.
 3. **Communicate.** If you are working on a printer, place an "Out of Service — Maintenance in Progress" sign so users do not attempt to use it.
 4. **No shortcuts.** Never bypass safety interlocks or tape down door switches to operate the printer with covers open.
@@ -227,3 +228,5 @@ Post this checklist near every printer:
 ---
 
 *Next: [FAQ](faq.md)*
+
+---

@@ -1,14 +1,15 @@
+---
 # Frequently Asked Questions
 
 ## General
 
-### Q: How often should I clean my printer?
+### Q: How often should you clean your printer?
 
 **A:** Exterior and scanner glass should be cleaned weekly. Internal components (feed rollers, paper path) should be cleaned monthly. A full deep clean is recommended quarterly. High-volume printers (5,000+ pages/month) may require more frequent cleaning.
 
-### Q: Can I use third-party (compatible) toner cartridges?
+### Q: Can you use third-party (compatible) toner cartridges?
 
-**A:** While third-party toner is cheaper, it carries the following risks:
+**A:** While third-party toner is less expensive, it carries the following risks:
 - Print quality may be inconsistent
 - Toner powder formulation can cause excessive dust and premature wear
 - Some third-party cartridges leak and damage the fuser
@@ -19,7 +20,7 @@
 
 **A:** Toner yield is rated at 5% page coverage (a standard text page). A typical 2,000-page cartridge will print approximately 2,000 text pages, but only 400–800 pages if printing full-page graphics or photos. Actual yield depends heavily on content density.
 
-### Q: Should I turn the printer off at night?
+### Q: Should you turn the printer off at night?
 
 **A:** It depends on usage:
 - **Low volume (under 100 pages/day)**: Power off at night to save energy and reduce wear.
@@ -34,7 +35,7 @@
 
 ## Print Quality
 
-### Q: Why are there vertical lines on my printed pages?
+### Q: Why are there vertical lines on your printed pages?
 
 **A:** Vertical lines have several causes depending on color and position:
 - **Black lines**: Damaged drum or toner cartridge. Replace the toner first; if the line persists, replace the drum.
@@ -50,7 +51,7 @@
 - Non-OEM toner with a lower melting point
 - Print speed is too high for the media weight
 
-### Q: My color printer has wrong colors. How do I fix it?
+### Q: My color printer has wrong colors. How do you fix it?
 
 **A:** Run the automatic color calibration / registration from the printer's control panel menu. If that doesn't help:
 1. Check that all toner cartridges are genuine and not expired.
@@ -58,7 +59,7 @@
 3. Clean the color registration sensors.
 4. If banding persists, the transfer belt may need replacement.
 
-### Q: Why is there a faint duplicate image (ghosting) on my pages?
+### Q: Why is there a faint duplicate image (ghosting) on your pages?
 
 **A:** Ghosting is caused by a component not fully releasing the toner image. The drum is the most common culprit — replace it first. If ghosting persists, the fuser may be failing. Also check that the paper type setting matches the actual media (thick paper requires higher fuser temperature).
 
@@ -66,7 +67,7 @@
 
 ## Paper and Jams
 
-### Q: Why does my printer keep jamming?
+### Q: Why does your printer keep jamming?
 
 **A:** Recurring jams usually have one of these root causes:
 1. **Worn pickup rollers** — the most common cause. Clean with alcohol; if the surface is smooth/glazed, replace them.
@@ -76,7 +77,7 @@
 5. **Wrong paper guides** — guides must be snug, not loose or too tight.
 6. **Worn separation pad** — causes multi-feeds and jams.
 
-### Q: Can I use inkjet paper in a laser printer?
+### Q: Can you use inkjet paper in a laser printer?
 
 **A:** Generally, yes — standard plain paper works in both. However, **inkjet-specific coated paper, photo paper, and transparencies should NOT be used in laser printers**. The laser fuser heat (180–220 °C) can melt inkjet coatings, causing jams and fuser damage. Always check the packaging for "laser compatible" or "laser printer" labeling.
 
@@ -102,7 +103,7 @@ Use only clean, unused paper for laser printing.
 
 ## Consumables
 
-### Q: How do I know when to replace the drum unit?
+### Q: How do you know when to replace the drum unit?
 
 **A:** Replace the drum when:
 - The display shows "Drum Life End" or "Replace Drum"
@@ -112,7 +113,7 @@ Use only clean, unused paper for laser printing.
 
 **Important:** After replacing the drum, you must reset the drum counter in the printer menu, or it will continue to display the replacement warning.
 
-### Q: Can I refill toner cartridges myself?
+### Q: Can you refill toner cartridges yourself?
 
 **A:** Technically yes, but it is not recommended for office environments:
 - Refilling is messy and toner powder is a respiratory irritant
@@ -121,7 +122,7 @@ Use only clean, unused paper for laser printing.
 - Most modern cartridges have chips that prevent refilling without chip resetters
 - For cost savings, consider compatible (new-built) cartridges rather than refills.
 
-### Q: How should I store spare toner cartridges?
+### Q: How should you store spare toner cartridges?
 
 **A:** Store in original packaging, in a cool (10–30 °C), dry (30–70% RH) place, away from direct sunlight and heat sources. Do not remove from packaging until ready to install. Shelf life is typically 2–3 years. Do not store cartridges on their side for long periods — store upright as indicated on the packaging.
 
@@ -133,7 +134,7 @@ Use only clean, unused paper for laser printing.
 
 ## Network and Software
 
-### Q: The printer shows "Offline" but it's powered on. How do I fix it?
+### Q: The printer shows "Offline" but it's powered on. How do you fix it?
 
 **A:** Try these steps in order:
 1. Print a configuration page from the printer and note its IP address.
@@ -142,7 +143,7 @@ Use only clean, unused paper for laser printing.
 4. Remove and re-add the printer using the correct driver.
 5. Ensure the printer has a **static IP address** — DHCP addresses change and break the connection.
 
-### Q: Can I print from my phone or tablet?
+### Q: Can you print from your phone or tablet?
 
 **A:** Yes, if the printer supports it:
 - **Apple AirPrint**: Most modern printers support this natively — no app needed.
@@ -151,7 +152,7 @@ Use only clean, unused paper for laser printing.
 - **Mopria**: Android standard for printing to Mopria-certified printers.
 Ensure the mobile device and printer are on the same Wi-Fi network.
 
-### Q: How do I clear a stuck print job?
+### Q: How do you clear a stuck print job?
 
 **A:** On Windows:
 1. Open **Settings > Devices > Printers & scanners**
@@ -184,7 +185,7 @@ On macOS: System Settings > Printers & Scanners > select printer > Open Print Qu
 - Replace the ozone filter per the maintenance schedule
 - If the smell is accompanied by smoke or burning odor, power off immediately and service the printer
 
-### Q: Can I open the fuser to clean it?
+### Q: Can you open the fuser to clean it?
 
 **A:** No. The fuser is a sealed, high-voltage, high-temperature assembly. Opening it:
 - Risks severe burns (fuser runs at 180–220 °C)
@@ -197,7 +198,7 @@ Fuser cleaning should be limited to wiping the entrance/exit guides with a dry c
 
 ## Cost and Efficiency
 
-### Q: How can I reduce printing costs?
+### Q: How can you reduce printing costs?
 
 **A:** Effective strategies include:
 1. **Duplex printing** — set double-sided as the default (cuts paper cost by ~50%)
@@ -219,3 +220,5 @@ Lifespan depends heavily on usage volume, maintenance quality, and environmental
 ---
 
 *Return to [Home](index.md)*
+
+---

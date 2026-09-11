@@ -1,8 +1,9 @@
+---
 # Daily Maintenance Checklist
 
 ## Overview
 
-Consistent daily and weekly checks are the single most effective way to prevent printer failures and maintain print quality. This checklist should be performed by the designated printer operator at the start and end of each business day.
+Consistent daily and weekly checks are the most effective way to prevent printer failures and maintain print quality. This checklist should be performed by the designated printer operator at the start and end of each business day.
 
 ---
 
@@ -12,37 +13,37 @@ Perform these tasks before the first print job of the day.
 
 ### 1. Visual Inspection
 
-- [ ] Printer power is on and the Ready indicator is solid green
-- [ ] No error or warning messages on the control panel display
-- [ ] Output tray is empty and ready to receive pages
-- [ ] No unusual noises (grinding, clicking, squealing) during warm-up
-- [ ] No paper scraps or foreign objects visible around the paper path
-- [ ] Cables are securely connected and not damaged
+- [ ] Ensure the printer power is on and the Ready indicator is solid green
+- [ ] Check for no error or warning messages on the control panel display
+- [ ] Confirm the output tray is empty and ready to receive pages
+- [ ] Listen for no unusual noises (grinding, clicking, squealing) during warm-up
+- [ ] Inspect for no paper scraps or foreign objects visible around the paper path
+- [ ] Verify cables are securely connected and not damaged
 
 ### 2. Paper Supply
 
-- [ ] Paper cassettes are loaded with the correct paper type and size
-- [ ] Paper is fanned before loading to prevent double-feeds
-- [ ] Paper guides are adjusted snugly against the paper stack (not too tight)
-- [ ] Paper level is above the minimum fill line
-- [ ] No curled, wrinkled, or damp paper in the trays
-- [ ] Paper is stored in a cool, dry location (original packaging until use)
+- [ ] Load paper cassettes with the correct paper type and size
+- [ ] Fan paper before loading to prevent double-feeds
+- [ ] Adjust paper guides snugly against the paper stack (not too tight)
+- [ ] Ensure paper level is above the minimum fill line
+- [ ] Check for no curled, wrinkled, or damp paper in the trays
+- [ ] Store paper in a cool, dry location (original packaging until use)
 
 ### 3. Consumable Status
 
-- [ ] Toner / ink level is above 20% (order replacement if below)
-- [ ] Drum unit life is above 10% (schedule replacement if near end)
-- [ ] Waste toner container is not full
-- [ ] Staples (if multifunction finisher) are loaded
-- [ ] Spare consumables are available on-site
+- [ ] Check toner/ink level is above 20% (order replacement if below)
+- [ ] Verify drum unit life is above 10% (schedule replacement if near end)
+- [ ] Ensure waste toner container is not full
+- [ ] Load staples (if multifunction finisher) as needed
+- [ ] Confirm spare consumables are available on-site
 
 ### 4. Print Quality Test
 
 - [ ] Print a test page from the control panel
-- [ ] No streaks, smudges, or faded areas on the test page
-- [ ] Text is sharp and legible at normal reading distance
-- [ ] Colors are accurate (for color printers)
-- [ ] No paper jams during the test print
+- [ ] Inspect for no streaks, smudges, or faded areas on the test page
+- [ ] Confirm text is sharp and legible at normal reading distance
+- [ ] Verify colors are accurate (for color printers)
+- [ ] Check for no paper jams during the test print
 
 !!! note "Record the meter reading"
     Every morning, record the total page count (meter reading) in the service log. This helps track usage patterns and schedule preventive maintenance.
@@ -53,12 +54,12 @@ Perform these tasks before the first print job of the day.
 
 Perform these tasks after the last print job of the day.
 
-- [ ] Output tray is emptied and filed
-- [ ] No pending or stuck print jobs in the queue
-- [ ] Scanner bed / ADF is clear of original documents
-- [ ] Printer cover is fully closed
-- [ ] Work area around the printer is clean and tidy
-- [ ] Power-saving mode is enabled (or printer is powered off per policy)
+- [ ] Empty the output tray and file pages
+- [ ] Clear any pending or stuck print jobs in the queue
+- [ ] Ensure the scanner bed/ADF is clear of original documents
+- [ ] Close the printer cover fully
+- [ ] Keep the work area around the printer clean and tidy
+- [ ] Enable power-saving mode (or power off per policy)
 
 ---
 
@@ -76,7 +77,7 @@ Perform these tasks every Friday (or the last business day of the week).
 
 ### Functional Checks
 
-- [ ] Print a configuration / supplies status page
+- [ ] Print a configuration/supplies status page
 - [ ] Verify all paper trays are recognized correctly
 - [ ] Test scan-to-email and scan-to-folder functions (if applicable)
 - [ ] Test duplex (double-sided) printing
@@ -89,7 +90,7 @@ Perform these tasks every Friday (or the last business day of the week).
 
 - [ ] Perform a full deep clean (see [Cleaning & Care](cleaning.md))
 - [ ] Inspect the fuser unit for wear or damage (allow to cool fully)
-- [ ] Check and clean the transfer belt / transfer roller
+- [ ] Check and clean the transfer belt/transfer roller
 - [ ] Verify the printer's IP address and network configuration
 - [ ] Review usage statistics and reorder consumables proactively
 - [ ] Verify the printer is covered under warranty or service contract
@@ -137,3 +138,5 @@ Stop routine maintenance and escalate to IT support if any of the following occu
 ---
 
 *Next: [Cleaning & Care](cleaning.md)*
+
+---

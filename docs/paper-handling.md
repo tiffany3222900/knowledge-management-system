@@ -10,16 +10,16 @@ Paper jams are the most common printer issue. Most jams are caused by improper p
 
 ### Standard Procedure
 
-1. **Remove the paper cassette** from the printer by pulling it straight out.
-2. **Fan the paper stack** — hold the stack at both ends and flex it, then fan the pages. This separates sheets and reduces static.
-3. **Tap the stack** on a flat surface to align the edges neatly.
-4. **Load the paper** into the cassette with the **print side facing down** (check the cassette label for orientation).
-5. **Adjust the paper guides** — slide the side and end guides until they touch the paper stack snugly.
+1. Remove the paper cassette from the printer by pulling it straight out.
+2. Fan the paper stack — hold the stack at both ends and flex it, then fan the pages. This separates sheets and reduces static.
+3. Tap the stack on a flat surface to align the edges neatly.
+4. Load the paper into the cassette with the print side facing down (check the cassette label for orientation).
+5. Adjust the paper guides — slide the side and end guides until they touch the paper stack snugly.
     - Too loose → paper skews → jams
     - Too tight → paper buckles → jams
-6. **Do not overfill** — keep the paper below the maximum fill line marked on the cassette.
-7. **Reinsert the cassette** firmly until it clicks.
-8. **Confirm paper size** on the control panel if prompted.
+6. Do not overfill — keep the paper below the maximum fill line marked on the cassette.
+7. Reinsert the cassette firmly until it clicks.
+8. Confirm paper size on the control panel if prompted.
 
 !!! tip "The golden rule"
     If the printer has a paper size sensor, always verify that the displayed size matches the actual paper. A mismatch causes 90% of "phantom" jams and misfeeds.
@@ -63,20 +63,20 @@ Paper jams can occur in several areas. The printer's control panel usually displ
 
 !!! danger "Safety first"
     1. Power off the printer before opening covers.
-    2. The fuser area is **extremely hot** — wait 30 minutes if accessing the rear.
-    3. Pull paper **slowly and steadily** in the direction of normal paper travel. Never yank.
-    4. If the paper tears, remove **every** scrap — even a tiny piece will cause another jam.
+    2. The fuser area is extremely hot — wait 30 minutes if accessing the rear.
+    3. Pull paper slowly and steadily in the direction of normal paper travel. Never yank.
+    4. If the paper tears, remove every scrap — even a tiny piece will cause another jam.
 
 ### Step-by-Step
 
-1. **Stop the printer** — press the Stop/Cancel button, then power off.
-2. **Check the display** — note the indicated jam location.
-3. **Open the appropriate cover** for the jam location (see sections below).
-4. **Remove the paper** gently, using both hands if possible.
-5. **Inspect for torn pieces** — use a flashlight to check rollers and guides.
-6. **Close all covers** firmly.
-7. **Power on** — the printer may run a calibration or automatically reprint the jammed page.
-8. **Print a test page** to confirm normal operation.
+1. Stop the printer — press the Stop/Cancel button, then power off.
+2. Check the display — note the indicated jam location.
+3. Open the appropriate cover for the jam location (see sections below).
+4. Remove the paper gently, using both hands if possible.
+5. Inspect for torn pieces — use a flashlight to check rollers and guides.
+6. Close all covers firmly.
+7. Power on — the printer may run a calibration or automatically reprint the jammed page.
+8. Print a test page to confirm normal operation.
 
 ---
 
@@ -121,7 +121,7 @@ Paper jams can occur in several areas. The printer's control panel usually displ
 1. Open the front cover.
 2. Remove the toner / drum unit assembly.
 3. Look inside the paper path for the jammed sheet.
-4. Pull the paper **straight out** in the direction of normal travel (toward the front or output, depending on model).
+4. Pull the paper straight out in the direction of normal travel (toward the front or output, depending on model).
 5. If the paper is wrapped around a roller, rotate the roller manually (in the normal direction) to feed the paper out.
 6. Use tweezers for small torn pieces if necessary.
 7. Reinstall the toner / drum unit.
@@ -229,3 +229,5 @@ Always perform these steps after any jam:
 ---
 
 *Next: [Troubleshooting](troubleshooting.md)*
+
+---
