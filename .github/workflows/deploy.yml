@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs-material mkdocs-print-site-plugin
+          pip install mkdocs-material mkdocs-print-site-plugin mkdocs-static-i18n
 
       - name: Build site
         run: mkdocs build
@@ -76,7 +76,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs-material mkdocs-print-site-plugin playwright
+          pip install mkdocs-material mkdocs-print-site-plugin mkdocs-static-i18n playwright
 
       - name: Install Playwright Chromium
         run: playwright install chromium --with-deps
