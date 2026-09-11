@@ -1,0 +1,37 @@
+name: Auto Translate to Chinese
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+  workflow_dispatch:  # allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  translate:
+    name: Incremental Translate (EN -> ZH)
+    runs-on: ubuntu-latest
+    # Skip runs triggered by our own translation commits to prevent loops
+    if: ${{ !contains(github.event.head_commit.message, '[skip translate]') }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # need HEAD~1 for incremental diff
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run incremental translation
+        env:
+          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
+          ZHIPU_MODEL: glm-4-flash
+        run: python .github/scripts/auto_translate.py
