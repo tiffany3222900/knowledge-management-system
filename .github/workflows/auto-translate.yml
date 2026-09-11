@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   translate:
@@ -34,4 +35,5 @@ jobs:
         env:
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           ZHIPU_MODEL: glm-4-flash
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python .github/scripts/auto_translate.py
