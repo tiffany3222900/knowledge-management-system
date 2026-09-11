@@ -48,7 +48,6 @@ plugins:
   - search
   - tags
   - i18n:
-      default_language: en
       languages:
         - locale: en
           name: English
@@ -57,18 +56,17 @@ plugins:
         - locale: zh
           name: 中文
           build: true
-      nav_translations:
-        zh:
-          Home: 首页
-          Getting Started: 入门指南
-          Daily Checklist: 每日检查清单
-          Cleaning & Care: 清洁与保养
-          Consumables: 耗材管理
-          Paper Handling: 纸张处理
-          Troubleshooting: 故障排除
-          Safety: 安全指南
-          FAQ: 常见问题
-          Download PDF: 下载PDF
+          nav_translations:
+            Home: 首页
+            Getting Started: 入门指南
+            Daily Checklist: 每日检查清单
+            Cleaning & Care: 清洁与保养
+            Consumables: 耗材管理
+            Paper Handling: 纸张处理
+            Troubleshooting: 故障排除
+            Safety: 安全指南
+            FAQ: 常见问题
+            Download PDF: 下载PDF
   - print-site:
       add_to_navigation: true
       print_page_title: 'Printer Maintenance Manual'
