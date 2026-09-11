@@ -1,4 +1,4 @@
-# Paper Handling & Jam Resolution
+# Paper Handling and Jam Resolution
 
 ## Overview
 

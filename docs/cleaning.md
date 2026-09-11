@@ -1,14 +1,14 @@
 ---
-# Cleaning & Care
+# Cleaning and Care
 
 ## Overview
 
 Regular cleaning helps prevent common printer problems such as paper jams, streaky prints, feed errors, and premature component wear. This section provides all cleaning procedures, from basic exterior wiping to internal component care.
 
 !!! danger "Before you begin"
-    1. **Power off** the printer using the power button.
-    2. **Unplug** the power cable from the wall outlet.
-    3. **Wait** at least 30 minutes for the fuser to cool completely.
+    1. Power off the printer using the power button.
+    2. Unplug the power cable from the wall outlet.
+    3. Wait at least 30 minutes for the fuser to cool completely.
     4. Wear nitrile gloves to avoid skin oils on components.
     5. Never touch the drum (photosensitive) surface with bare fingers.
 
@@ -19,7 +19,7 @@ Regular cleaning helps prevent common printer problems such as paper jams, strea
 ### Frequency: Weekly
 
 1. Power off and unplug the printer.
-2. Wipe the exterior casing, control panel, and output tray with a **dry** lint-free cloth.
+2. Wipe the exterior casing, control panel, and output tray with a dry lint-free cloth.
 3. For stubborn marks, dampen the cloth slightly with water or a mild, non-abrasive cleaner.
 4. Clean the control panel touchscreen with a dedicated screen wipe (no alcohol on touchscreens).
 5. Dust the ventilation slots with compressed air (hold can upright, 15 cm away).
