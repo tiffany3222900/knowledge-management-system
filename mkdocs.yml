@@ -5,7 +5,7 @@ site_url: https://tiffany3222900.github.io/knowledge-management-system/
 
 repo_name: tiffany3222900/knowledge-management-system
 repo_url: https://github.com/tiffany3222900/knowledge-management-system
-repo_branch: main
+edit_uri: edit/main/docs/
 
 theme:
   name: material                  # 核心：Material 主题，不是 GitHub 默认
