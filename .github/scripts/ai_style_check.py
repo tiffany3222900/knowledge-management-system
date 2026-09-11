@@ -1,18 +1,18 @@
-"""
+﻿"""
 AI Writing Style Check for MkDocs documentation.
 
 Runs on pull requests that change docs/**/*.md files.
-Fetches changed files, sends them to SiliconFlow (Qwen2.5-72B) for style review,
+Fetches changed files, sends them to Zhipu GLM (Qwen2.5-72B) for style review,
 and posts the results as a PR comment.
 
 Supports both pull_request and workflow_dispatch triggers.
 For workflow_dispatch, auto-finds the open PR for the branch.
 
-Mode: "advisory" (default) — only comments, never fails the check.
+Mode: "advisory" (default) 鈥?only comments, never fails the check.
 Set FAIL_ON_CRITICAL=true in workflow env to enable hard gate mode.
 
-Requires SILICONFLOW_API_KEY in repo secrets.
-Get a free key at: https://cloud.siliconflow.cn/account/ak
+Requires ZHIPU_API_KEY in repo secrets.
+Get a free key at: https://cloud.Zhipu GLM.cn/account/ak
 Free tier: daily free tokens, no credit card required.
 """
 import os
@@ -20,10 +20,10 @@ import sys
 import requests
 from github import Github
 
-# ──────────────────────────────────────────────
-# Style guide — edit this to match your team's
+# 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+# Style guide 鈥?edit this to match your team's
 # documentation standards.
-# ──────────────────────────────────────────────
+# 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 STYLE_GUIDE = """
 You are a senior technical editor reviewing enterprise documentation.
 Check the document against these standards and give actionable feedback.
@@ -37,8 +37,8 @@ Check the document against these standards and give actionable feedback.
 
 2. **Structure**
    - Procedures use numbered steps, each starting with an imperative verb
-   - One idea per paragraph; paragraphs ≤ 5 lines
-   - Headings follow hierarchy: # → ## → ### (no skipping levels)
+   - One idea per paragraph; paragraphs 鈮?5 lines
+   - Headings follow hierarchy: # 鈫?## 鈫?### (no skipping levels)
    - Each page has a clear intro paragraph stating purpose
 
 3. **Terminology (for printer maintenance context)**
@@ -60,7 +60,7 @@ Check the document against these standards and give actionable feedback.
 
 6. **Completeness**
    - Every procedure has: prerequisites, steps, expected result
-   - Troubleshooting entries have: symptom → cause → fix
+   - Troubleshooting entries have: symptom 鈫?cause 鈫?fix
    - No "TBD", "TODO", "coming soon" placeholders
 
 ## Output Format
@@ -70,7 +70,7 @@ Check the document against these standards and give actionable feedback.
 **Strengths:** (2-3 bullet points)
 
 **Issues:**
-- [Severity: High/Medium/Low] File:line — description
+- [Severity: High/Medium/Low] File:line 鈥?description
   Suggested fix: "..."
 
 **Summary:** one sentence on whether this is ready to merge.
@@ -99,17 +99,17 @@ def find_pr_for_branch(repo, branch):
 
 
 def call_llm(filepath, content):
-    """Call SiliconFlow API (OpenAI-compatible, free daily quota)."""
-    api_key = os.environ.get("SILICONFLOW_API_KEY")
-    model = os.environ.get("SILICONFLOW_MODEL", "Qwen/Qwen2.5-72B-Instruct")
+    """Call Zhipu API (OpenAI-compatible, free daily quota)."""
+    api_key = os.environ.get("ZHIPU_API_KEY")
+    model = os.environ.get("ZHIPU_MODEL", "glm-4-flash")
 
     if not api_key:
-        raise RuntimeError("SILICONFLOW_API_KEY is not set")
+        raise RuntimeError("ZHIPU_API_KEY is not set")
 
-    print(f"  Calling SiliconFlow {model}...")
+    print(f"  Calling Zhipu GLM {model}...")
 
     resp = requests.post(
-        "https://api.siliconflow.cn/v1/chat/completions",
+        "https://open.bigmodel.cn/api/paas/v4/chat/completions",
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
@@ -131,7 +131,7 @@ def call_llm(filepath, content):
 
     if resp.status_code != 200:
         print(f"  API Error {resp.status_code}: {resp.text}")
-        raise RuntimeError(f"SiliconFlow API {resp.status_code}: {resp.text[:500]}")
+        raise RuntimeError(f"Zhipu API {resp.status_code}: {resp.text[:500]}")
 
     return resp.json()["choices"][0]["message"]["content"]
 
@@ -177,34 +177,34 @@ def main():
             raw = repo.get_contents(filepath, ref=pr.head.sha)
             content = raw.decoded_content.decode("utf-8")
         except Exception as e:
-            results.append(f"### 📄 {filepath}\n\n⚠️ Could not read file: {e}")
+            results.append(f"### 馃搫 {filepath}\n\n鈿狅笍 Could not read file: {e}")
             continue
 
         try:
             review = call_llm(filepath, content)
         except Exception as e:
             results.append(
-                f"### 📄 {filepath}\n\n⚠️ AI review failed: {e}"
+                f"### 馃搫 {filepath}\n\n鈿狅笍 AI review failed: {e}"
             )
             continue
 
-        results.append(f"### 📄 {filepath}\n\n{review}")
+        results.append(f"### 馃搫 {filepath}\n\n{review}")
         if "Overall rating:** D" in review or "Overall rating: D" in review:
             has_critical = True
 
     # Post comment to PR
     comment = (
-        "## 🤖 AI Writing Style Check\n\n"
+        "## 馃 AI Writing Style Check\n\n"
         + "\n\n---\n\n".join(results)
         + "\n\n---\n"
         + "_This is an automated advisory review. "
         + "Human review is still required._\n"
     )
     pr.create_issue_comment(comment)
-    print("\n✅ Style review posted to PR.")
+    print("\n鉁?Style review posted to PR.")
 
     if fail_on_critical and has_critical:
-        print("\n❌ Critical style issues found — failing the check.")
+        print("\n鉂?Critical style issues found 鈥?failing the check.")
         sys.exit(1)
 
 

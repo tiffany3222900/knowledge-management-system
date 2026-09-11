@@ -1,4 +1,4 @@
-name: AI Writing Style Check
+﻿name: AI Writing Style Check
 
 on:
   pull_request:
@@ -30,8 +30,8 @@ jobs:
 
       - name: Run AI style check
         env:
-          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
-          SILICONFLOW_MODEL: Qwen/Qwen2.5-72B-Instruct
+          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
+          ZHIPU_MODEL: glm-4-flash
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           # Set to "true" to block merge on D-rated reviews.

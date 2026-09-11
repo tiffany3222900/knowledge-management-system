@@ -1,4 +1,4 @@
-"""
+﻿"""
 AI Auto-Fix for MkDocs documentation.
 
 Reads all docs/*.md files from a target branch, sends each to AI for
@@ -9,7 +9,7 @@ Human reviewer only needs to approve or reject the PR.
 Usage:
   python ai_style_fix.py [--branch main]
 
-Requires SILICONFLOW_API_KEY in repo secrets.
+Requires ZHIPU_API_KEY in repo secrets.
 """
 import os
 import sys
@@ -19,10 +19,10 @@ import requests
 from github import Github
 from github import InputGitTreeElement
 
-# ──────────────────────────────────────────────
-# Style guide — same rules as the checker, but
+# 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
+# Style guide 鈥?same rules as the checker, but
 # here the AI applies them directly.
-# ──────────────────────────────────────────────
+# 鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€
 STYLE_GUIDE = """
 You are a senior technical editor. Your job is to FIX the documentation
 according to the rules below. Output ONLY the corrected markdown content,
@@ -40,8 +40,8 @@ no explanations, no code fences, no commentary.
 
 2. **Structure**
    - Procedures use numbered steps, each starting with an imperative verb
-   - One idea per paragraph; paragraphs ≤ 5 lines
-   - Headings follow hierarchy: # → ## → ### (no skipping levels)
+   - One idea per paragraph; paragraphs 鈮?5 lines
+   - Headings follow hierarchy: # 鈫?## 鈫?### (no skipping levels)
    - Each page has a clear intro paragraph stating purpose
 
 3. **Terminology (printer maintenance context)**
@@ -62,7 +62,7 @@ no explanations, no code fences, no commentary.
 
 6. **Completeness**
    - Every procedure has: prerequisites, steps, expected result
-   - Troubleshooting entries: symptom → cause → fix
+   - Troubleshooting entries: symptom 鈫?cause 鈫?fix
    - No "TBD", "TODO", "coming soon" placeholders
 
 ## Important:
@@ -75,17 +75,17 @@ no explanations, no code fences, no commentary.
 
 
 def call_ai_fix(filepath, content):
-    """Call SiliconFlow API to fix the document style."""
-    api_key = os.environ.get("SILICONFLOW_API_KEY")
-    model = os.environ.get("SILICONFLOW_MODEL", "Qwen/Qwen2.5-72B-Instruct")
+    """Call Zhipu API to fix the document style."""
+    api_key = os.environ.get("ZHIPU_API_KEY")
+    model = os.environ.get("ZHIPU_MODEL", "glm-4-flash")
 
     if not api_key:
-        raise RuntimeError("SILICONFLOW_API_KEY is not set")
+        raise RuntimeError("ZHIPU_API_KEY is not set")
 
     print(f"  AI fixing {filepath} ...")
 
     resp = requests.post(
-        "https://api.siliconflow.cn/v1/chat/completions",
+        "https://open.bigmodel.cn/api/paas/v4/chat/completions",
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
@@ -110,7 +110,7 @@ def call_ai_fix(filepath, content):
     )
 
     if resp.status_code != 200:
-        raise RuntimeError(f"SiliconFlow API {resp.status_code}: {resp.text[:500]}")
+        raise RuntimeError(f"Zhipu API {resp.status_code}: {resp.text[:500]}")
 
     result = resp.json()["choices"][0]["message"]["content"]
 
@@ -173,13 +173,13 @@ def main():
                 changed += abs(len(fixed_lines) - len(orig_lines))
 
                 fixes.append((filepath, original, fixed, f"{changed} line(s) changed"))
-                print(f"    ✓ Fixed ({changed} line(s) changed)")
+                print(f"    鉁?Fixed ({changed} line(s) changed)")
             else:
-                print(f"    ✓ No changes needed")
+                print(f"    鉁?No changes needed")
 
         except Exception as e:
             error_msg = str(e)
-            print(f"    ✗ Error: {error_msg}")
+            print(f"    鉁?Error: {error_msg}")
             failures.append((filepath, error_msg))
             continue
 
@@ -188,7 +188,7 @@ def main():
 
     # If ALL files failed, exit with error so CI shows failure
     if failures and not fixes:
-        print(f"\n❌ All {len(failures)} file(s) failed AI processing.")
+        print(f"\n鉂?All {len(failures)} file(s) failed AI processing.")
         for filepath, error in failures:
             print(f"  - {filepath}: {error[:100]}")
         print("\nCommon causes:")
@@ -198,7 +198,7 @@ def main():
         sys.exit(1)
 
     if not fixes:
-        print("\n✅ All files are already clean. No PR needed.")
+        print("\n鉁?All files are already clean. No PR needed.")
         return
 
     print(f"\n{len(fixes)} file(s) need fixes. Creating PR...")
@@ -228,13 +228,13 @@ def main():
     if failures:
         failure_lines = [f"- **{fp}**: {err[:80]}" for fp, err in failures]
         failure_section = (
-            "\n### ⚠️ Files Failed (not included in this PR)\n\n"
+            "\n### 鈿狅笍 Files Failed (not included in this PR)\n\n"
             + "\n".join(failure_lines)
             + "\n"
         )
 
     pr_body = (
-        "## 🤖 AI Style Auto-Fix\n\n"
+        "## 馃 AI Style Auto-Fix\n\n"
         "This PR was automatically generated by the AI style checker.\n"
         "It applies documentation style fixes according to the project style guide.\n\n"
         "### Files Changed\n\n"
@@ -258,13 +258,13 @@ def main():
     )
 
     pr = repo.create_pull(
-        title=f"🤖 AI Style Fix ({timestamp})",
+        title=f"馃 AI Style Fix ({timestamp})",
         body=pr_body,
         head=new_branch,
         base=target_branch,
     )
 
-    print(f"\n✅ PR created: {pr.html_url}")
+    print(f"\n鉁?PR created: {pr.html_url}")
     print(f"   Title: {pr.title}")
 
 
