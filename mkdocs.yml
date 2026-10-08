@@ -66,7 +66,8 @@ plugins:
             Troubleshooting: 故障排除
             Safety: 安全指南
             FAQ: 常见问题
-            Download PDF: 下载PDF
+            Download PDF (EN): 下载 PDF（英文版）
+            Download PDF (ZH): 下载 PDF（中文版）
   - print-site:
       add_to_navigation: true
       print_page_title: 'Printer Maintenance Manual'
@@ -107,7 +108,8 @@ nav:
   - Troubleshooting: troubleshooting.md
   - Safety: safety.md
   - FAQ: faq.md
-  - Download PDF: https://github.com/tiffany3222900/knowledge-management-system/raw/main/Printer_Maintenance_Manual.pdf
+  - Download PDF (EN): https://github.com/tiffany3222900/knowledge-management-system/raw/main/Printer_Maintenance_Manual_EN.pdf
+  - Download PDF (ZH): https://github.com/tiffany3222900/knowledge-management-system/raw/main/Printer_Maintenance_Manual_ZH.pdf
 
 extra:
   social:
