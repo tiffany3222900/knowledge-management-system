@@ -22,14 +22,11 @@ concurrency:
 
 jobs:
   # ---------------------------------------------------------------
-  # Job 1: Build MkDocs site and deploy to GitHub Pages
+  # Job 1: Build MkDocs site once, upload as artifact
   # ---------------------------------------------------------------
-  deploy-site:
-    name: Deploy Site to GitHub Pages
+  build-site:
+    name: Build Site
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,6 +44,30 @@ jobs:
       - name: Build site
         run: mkdocs build
 
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build
+          path: ./site
+          retention-days: 7
+
+  # ---------------------------------------------------------------
+  # Job 2: Deploy the built site to GitHub Pages (reuses artifact)
+  # ---------------------------------------------------------------
+  deploy-site:
+    name: Deploy Site to GitHub Pages
+    needs: build-site
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: ./site
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
@@ -60,7 +81,10 @@ jobs:
         uses: actions/deploy-pages@v4
 
   # ---------------------------------------------------------------
-  # Job 2: Build PDF and open PR for update
+  # Job 3: Build PDFs (EN+ZH) and open PR for update
+  # Runs in parallel with site build/deploy.
+  # Note: PDFs need per-locale builds (build_only_locale) to get
+  # pure-language print pages, so the main site artifact is not reused.
   # ---------------------------------------------------------------
   build-pdf:
     name: Build PDF Manual
@@ -81,9 +105,6 @@ jobs:
 
       - name: Install Playwright Chromium
         run: playwright install chromium --with-deps
-
-      - name: Build site
-        run: mkdocs build
 
       - name: Export PDF (EN)
         run: python export_pdf.py en
