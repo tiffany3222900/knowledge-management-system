@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs-material mkdocs-print-site-plugin playwright
+          pip install mkdocs-material mkdocs-print-site-plugin mkdocs-static-i18n playwright
 
       - name: Install Playwright Chromium
         run: playwright install chromium --with-deps
@@ -39,8 +39,11 @@ jobs:
       - name: Build site
         run: mkdocs build
 
-      - name: Export PDF
-        run: python export_pdf.py
+      - name: Export PDF (EN)
+        run: python export_pdf.py en
+
+      - name: Export PDF (ZH)
+        run: python export_pdf.py zh
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -54,12 +57,16 @@ jobs:
             **Live site**: https://tiffany3222900.github.io/knowledge-management-system/
 
             ### What's in this release
-            - Full PDF manual (A4, ~50 pages)
-            - All 9 documentation sections compiled
+            - English PDF (A4, ~50 pages)
+            - Chinese PDF (A4, ~49 pages)
+            - All 9 documentation sections compiled in each language
             - Table of contents, page numbers, headers/footers
 
             ### Files
-            - `Printer_Maintenance_Manual.pdf` — the complete manual
-          files: Printer_Maintenance_Manual.pdf
+            - `Printer_Maintenance_Manual_EN.pdf` — English version
+            - `Printer_Maintenance_Manual_ZH.pdf` — Chinese version
+          files: |
+            Printer_Maintenance_Manual_EN.pdf
+            Printer_Maintenance_Manual_ZH.pdf
           fail_on_unmatched_files: true
           generate_release_notes: true
