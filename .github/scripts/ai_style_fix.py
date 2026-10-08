@@ -31,7 +31,7 @@ no explanations, no code fences, no commentary.
 ## Rules to apply:
 
 1. **Tone & Voice**
-   - Professional, objective, second-person ("you")
+   - Professional, objective, second-person 
    - No colloquialisms; replace "cheaper" with "less expensive",
      "stuff" with "items", etc.
    - Remove belittling words: "just", "simply", "easy", "obviously"
