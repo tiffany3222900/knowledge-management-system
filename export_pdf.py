@@ -11,6 +11,14 @@ For English, the print-site plugin also excludes *.zh.md files so the
 PDF contains only English content. For Chinese, i18n maps files to the
 zh locale automatically.
 
+Reproducible builds:
+  Chromium embeds a creation timestamp and random file ID in every PDF,
+  so identical content produces different bytes on each run. After
+  export, the PDF is normalized with pikepdf (fixed CreationDate/ModDate
+  and a deterministic file ID) so that content-identical builds yield
+  byte-identical PDFs. This lets CI skip the "PDF update" PR when the
+  content has not actually changed.
+
 Works on both local Windows and CI (Ubuntu).
 """
 import sys
@@ -33,6 +41,31 @@ OUTPUT_NAME = {
     "en": "Printer_Maintenance_Manual_EN.pdf",
     "zh": "Printer_Maintenance_Manual_ZH.pdf",
 }
+
+# Fixed metadata so content-identical builds produce byte-identical PDFs
+FIXED_DATE = "D:20260101000000+00'00'"
+FIXED_ID = b"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
+
+
+def make_reproducible(pdf_path: Path):
+    """Strip run-to-run nondeterminism (timestamps, file ID) from a PDF."""
+    try:
+        import pikepdf
+    except ImportError:
+        print("WARNING: pikepdf not installed; PDF will not be reproducible.")
+        return
+
+    tmp_path = pdf_path.with_suffix(".tmp.pdf")
+    with pikepdf.open(pdf_path) as pdf:
+        if pdf.docinfo is not None:
+            for key in ("/CreationDate", "/ModDate"):
+                if key in pdf.docinfo:
+                    pdf.docinfo[key] = FIXED_DATE
+        # deterministic_id=True makes pikepdf emit a fixed ID derived from
+        # the content instead of a random one
+        pdf.save(tmp_path, deterministic_id=True)
+    tmp_path.replace(pdf_path)
+    print(f"Reproducible metadata applied: {pdf_path.name}")
 
 
 def make_temp_config(lang: str) -> Path:
@@ -134,6 +167,9 @@ def export_pdf(lang: str):
             prefer_css_page_size=False,
         )
         browser.close()
+
+    # Make the PDF byte-deterministic (fix timestamps + file ID)
+    make_reproducible(output_pdf)
 
     size_mb = output_pdf.stat().st_size / (1024 * 1024)
     print(f"\nSUCCESS: PDF generated - {output_pdf}")
