@@ -150,7 +150,7 @@ This repository uses **5 GitHub Actions workflows** to automate the full documen
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
-| `deploy.yml` | Push to `main` (docs/mkdocs.yml/export_pdf.py/workflow paths) or manual | Builds site once (artifact), deploys to GitHub Pages, builds bilingual PDFs and opens a PR if they changed |
+| `deploy.yml` | Push to `main` (docs/mkdocs.yml/export_pdf.py/workflow paths) or manual | Builds site once (artifact) and deploys to GitHub Pages. `build-pdf` job runs a **EN-ZH sync gate**: it only builds bilingual PDFs when every English doc's latest change has a matching, up-to-date `*.zh.md` translation (i.e. after the translation PR is merged); otherwise it skips the PDF build entirely |
 | `release.yml` | Push tag `v*`, or manual (enter tag name) | Builds bilingual PDFs and creates a **GitHub Release** with EN+ZH PDF attachments. On manual trigger it auto-creates the tag first |
 | `auto-translate.yml` | Push to `main` (docs/ changes) or manual | Incrementally translates changed English docs to Chinese (`*.zh.md`), opens a PR |
 | `ai-style-check.yml` | Any PR touching `docs/**/*.md`, or manual | Runs AI writing-style review (Zhipu GLM-4-Flash) and posts an advisory report as a PR comment (does not block) |
