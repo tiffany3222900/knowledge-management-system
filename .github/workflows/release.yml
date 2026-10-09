@@ -21,6 +21,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Create tag (manual trigger only)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git rev-parse -q --verify "refs/tags/${{ inputs.tag }}" >/dev/null; then
+            echo "Tag ${{ inputs.tag }} already exists, reusing it."
+          else
+            git tag "${{ inputs.tag }}"
+            git push origin "${{ inputs.tag }}"
+            echo "Created and pushed tag ${{ inputs.tag }}."
+          fi
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -47,9 +63,10 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Printer Maintenance Manual ${{ github.ref_name }}
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+          name: Printer Maintenance Manual ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
           body: |
-            ## Printer Maintenance Manual — ${{ github.ref_name }}
+            ## Printer Maintenance Manual — ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
 
             Automated PDF release generated from the MkDocs documentation site.
 
