@@ -1,9 +1,10 @@
 ---
+---
 # Troubleshooting Guide
 
 ## Overview
 
-This section provides symptom-to-solution reference for the most common printer problems. Problems are organized by category. Always start with the simplest solution, such as a power cycle, and progress to more complex fixes.
+This section provides symptom-to-solution reference for the most common printer problems. Problems are organized by category. Always begin with the simplest solution, such as a power cycle, and progress to more complex fixes.
 
 ---
 
@@ -268,5 +269,7 @@ Start
 ---
 
 *Next: [Safety](safety.md)*
+
+---
 
 ---
