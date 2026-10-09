@@ -21,7 +21,7 @@ Printer maintenance involves electrical, thermal, mechanical, and chemical hazar
 
 ### Before Any Internal Maintenance
 
-- [ ] Power off the printer using the power button (do not just pull the plug while running)
+- [ ] Power off the printer using the power button (do not unplug the printer while it is running)
 - [ ] Unplug the power cable from the wall outlet
 - [ ] If the printer has a separate power switch, set it to "Off"
 - [ ] Verify the printer is disconnected by attempting to power it on

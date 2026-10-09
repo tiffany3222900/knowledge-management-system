@@ -10,10 +10,10 @@
 ### Q: Can you use third-party (compatible) toner cartridges?
 
 **A:** While third-party toner is less expensive, it carries the following risks:
-- Print quality may be inconsistent
-- Toner powder formulation can cause excessive dust and premature wear
-- Some third-party cartridges leak and damage the fuser
-- Using non-OEM supplies may void the printer warranty
+- Print quality might be inconsistent
+- Toner powder formulation might cause excessive dust and premature wear
+- Some third-party cartridges might leak and damage the fuser
+- Using non-OEM supplies might void the printer warranty
 - Recommendation: use OEM toner for critical printers; test third-party brands on non-critical devices first.
 
 ### Q: How long does a toner cartridge last?
@@ -53,7 +53,7 @@
 
 ### Q: My color printer has wrong colors. How do I fix it?
 
-**A:** Run the automatic color calibration / registration from the printer's control panel menu. If that doesn't help:
+**A:** Run the automatic color calibration / registration from the printer's control panel menu. If that does not help:
 1. Check that all toner cartridges are genuine and not expired.
 2. Replace the cartridge for the missing/incorrect color.
 3. Clean the color registration sensors.
@@ -134,7 +134,7 @@ Use only clean, unused paper for laser printing.
 
 ## Network and Software
 
-### Q: The printer shows "Offline" but it's powered on. How do I fix it?
+### Q: The printer shows "Offline" but it is powered on. How do I fix it?
 
 **A:** Try these steps in order:
 1. Print a configuration page from the printer and note its IP address.
@@ -183,7 +183,9 @@ On macOS: System Settings > Printers & Scanners > select printer > Open Print Qu
 - Strong or persistent ozone odor may indicate a failing corona wire or ozone filter
 - Ensure the room is well-ventilated
 - Replace the ozone filter per the maintenance schedule
-- If the smell is accompanied by smoke or burning odor, power off immediately and service the printer
+
+!!! warning "Smoke or burning odor"
+    If the smell is accompanied by smoke or burning odor, power off immediately and service the printer.
 
 ### Q: Can I open the fuser to clean it?
 

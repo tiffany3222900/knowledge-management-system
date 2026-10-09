@@ -12,7 +12,7 @@ This section provides symptom-to-solution reference for the most common printer 
 Before any advanced troubleshooting, perform a power cycle. This resolves approximately 40% of transient errors.
 
 1. Press the power button to turn off the printer.
-2. **Unplug** the power cable from the wall outlet (not just the printer).
+2. **Unplug** the power cable from the wall outlet (not only the printer).
 3. Wait **60 seconds** — this allows capacitors to discharge and memory to clear.
 4. While waiting, check that all covers are closed and no paper is jammed.
 5. Plug the power cable back in.
