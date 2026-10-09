@@ -1,213 +1,216 @@
-# 耗材管理
+---
+# Consumables Management
 
-## 概述
+## Overview
 
-耗材包括碳粉盒、墨盒、硒鼓单元、废粉盒、维护套件和纸张。正确的管理可确保持续的打印质量、避免意外停机并最大化每个组件的使用寿命。
+Consumables include toner cartridges, ink cartridges, drum units, waste toner containers, maintenance kits, and paper. Proper management ensures consistent print quality, avoids unexpected downtime, and maximizes the lifespan of each component.
 
 ---
 
-## 耗材生命周期
+## Consumables Lifecycle
 
 ```
-订购 → 收货 → 存储 → 安装 → 监控 → 更换 → 处置
+Order → Receive → Store → Install → Monitor → Replace → Dispose
   │                                              │
-  └────────────── 重新订购点 ────────────────────┘
+  └────────────── Reorder Point ────────────────────┘
 ```
 
-### 重新订购触发条件
+### Reorder Trigger Conditions
 
-| 耗材 | 重新订购时机 | 现场备货 |
-|------|-------------|----------|
-| 碳粉 / 墨盒 | 余量低于20% | 每种打印机型号1个备用 |
-| 硒鼓单元 | 剩余寿命低于15% | 1个备用（高印量打印机） |
-| 废粉盒 | 80%满指示器 | 1个备用 |
-| 维护套件 | 额定页数的80% | 安排服务上门 |
-| 纸张 | 低于2周供应量 | 1个月供应量 |
-
----
-
-## 碳粉盒更换
-
-### 何时更换
-
-- 控制面板显示"碳粉不足"或"碳粉已空"
-- 打印输出褪色或有浅色垂直条纹
-- 碳粉LED亮琥珀色
-
-### 操作流程（激光打印机）
-
-1. **准备** — 准备好新碳粉盒。轻轻左右摇晃5-6次使碳粉均匀分布。
-2. **开机** — 打印机必须开机才能正确安装碳粉盒。
-3. 完全打开**前盖**。
-4. **取出旧碳粉盒** — 握住把手直接拉出。
-5. **准备新碳粉盒** — 按指示方向用力拉 tab 移除保护封条。不要触摸硒鼓表面。
-6. **插入新碳粉盒** — 对齐导轨并用力推入直到咔嗒到位。
-7. **关闭前盖** — 打印机将运行校准周期（15-60秒）。
-8. **打印测试页**确认质量。
-9. 通过制造商回收计划**处置**旧碳粉盒。
-
-!!! tip "延长碳粉寿命"
-    当"碳粉不足"消息首次出现时，取出碳粉盒，轻轻左右摇晃5次，重新安装。这可以多打印50-200页，为更换件到货争取时间。
-
-### 碳粉存储
-
-- 存放在阴凉干燥处（10-30°C，30-70%相对湿度）
-- 使用前保持原包装
-- 不要靠近热源或阳光直射存放
-- 避免高湿度 — 碳粉会吸潮结块
-- 保质期：通常自生产日期起2-3年（查看包装）
+| Consumable | Reorder Time | On-site Stock |
+|------------|--------------|---------------|
+| Toner / Ink | Below 20% remaining | 1 spare per printer model |
+| Drum Unit | Remaining life below 15% | 1 spare (for high-volume printers) |
+| Waste Toner Container | 80% full indicator | 1 spare |
+| Maintenance Kit | At 80% of rated pages | Schedule service call |
+| Paper | Below 2 weeks supply | 1 month supply |
 
 ---
 
-## 硒鼓单元更换
+## Toner Cartridge Replacement
 
-### 什么是硒鼓？
+### When to Replace
 
-硒鼓（感光鼓）是将碳粉图像转印到纸张上的组件。它是有额定寿命的磨损件（通常为12,000-60,000页，视型号而定）。
+- The control panel displays "Toner Low" or "Toner Empty"
+- Print output fades or has light vertical stripes
+- The toner LED is amber
 
-### 何时更换
+### Operation Procedure (Laser Printer)
 
-- 控制面板显示"硒鼓寿命结束"或"更换硒鼓"
-- 打印输出在固定间隔出现重复斑点或污渍（测量间隔 — 它与硒鼓周长匹配）
-- 即使更换新碳粉盒后仍有褪色或重影图像
+1. **Prepare** — Prepare a new toner cartridge. Gently shake it left and right 5-6 times to evenly distribute the toner.
+2. **Power On** — The printer must be powered on to install the toner cartridge correctly.
+3. Fully open the **front cover**.
+4. **Remove the old toner cartridge** — Grasp the handle and pull it out directly.
+5. **Prepare the new toner cartridge** — Pull the tab off in the indicated direction. Do not touch the drum surface.
+6. **Insert the new toner cartridge** — Align the guides and push it in until it clicks into place.
+7. **Close the front cover** — The printer will run a calibration cycle (15-60 seconds).
+8. **Print a test page** to confirm quality.
+9. Dispose of the old toner cartridge through the manufacturer's recycling program.
 
-### 操作流程
+!!! tip "Extend Toner Life"
+    When the "Toner Low" message first appears, remove the toner cartridge, gently shake it 5 times, and reinstall it. This can print an additional 50-200 pages, giving you time to wait for the replacement to arrive.
 
-1. 开机并打开前盖。
-2. 取出碳粉盒（它可能连接在硒鼓单元上）。
-3. 直接拉出硒鼓单元组件。
-4. 拆开新硒鼓单元包装并移除所有保护盖。
-5. 插入新硒鼓单元直到咔嗒到位。
-6. 将碳粉盒重新安装到新硒鼓中。
-7. 关闭前盖。
-8. **重置硒鼓计数器** — 这很关键。除非通过控制面板菜单重置计数器，否则打印机不会识别新硒鼓。
-9. 打印测试页。
+### Toner Storage
 
-!!! warning "重置计数器"
-    忘记重置硒鼓计数器是最常见的错误。打印机会继续显示"更换硒鼓"并可能停止打印。请参阅您型号的用户手册了解确切的重置流程。
-
----
-
-## 废粉盒
-
-### 何时更换
-
-- 显示屏显示"废粉已满"或"废粉盒即将满"
-- 由于碳粉堆积导致打印质量下降
-
-### 操作流程
-
-1. 关机并拔下电源。
-2. 打开前部或侧部检修盖（位置因型号而异）。
-3. 小心拉出废粉盒 — 保持水平以避免泄漏。
-4. 将旧废粉盒密封在塑料袋中。
-5. 安装新废粉盒，推入直到咔嗒到位。
-6. 关闭盖子，插电并开机。
-7. 如提示，重置废粉计数器。
+- Store in a cool, dry place (10-30°C, 30-70% relative humidity)
+- Keep in original packaging before use
+- Do not store near heat sources or direct sunlight
+- Avoid high humidity — toner will absorb moisture and cake
+- Shelf Life: Typically 2-3 years from the production date (check packaging)
 
 ---
 
-## 墨盒更换（喷墨打印机）
+## Drum Unit Replacement
 
-### 何时更换
+### What is a Drum?
 
-- 显示屏显示墨水余量低或已空
-- 打印输出缺色或有水平白线
-- 墨滴图标亮起
+The drum (photoconductor drum) is the component that transfers the toner image to the paper. It is a wear item with a rated lifespan (usually 12,000-60,000 pages, depending on the model).
 
-### 操作流程
+### When to Replace
 
-1. 开机。
-2. 打开墨盒检修门（字车将移动到中央）。
-3. 等待字车停止移动。
-4. 按下空墨盒将其释放，然后拉出。
-5. 从包装中取出新墨盒并移除喷嘴上的保护胶带。
-    - **不要**触摸铜触点或喷嘴板。
-6. 将新墨盒插入正确的插槽（匹配颜色标签）并向上推直到咔嗒到位。
-7. 关闭检修门。
-8. 打印机将运行自动灌注周期。
-9. 打印喷嘴检查图案以确认所有颜色正常喷射。
-10. 如果有线条缺失，运行喷头清洁工具（最多1-2个周期，然后运行深度清洁）。
+- The control panel displays "Drum Life End" or "Replace Drum"
+- Print output shows repeated spots or stains at fixed intervals (measurement interval — it matches the drum circumference)
+- Even after replacing a new toner cartridge, there is fading or ghosting images
 
----
+### Operation Procedure
 
-## 纸张选择与存储
+1. Power on and open the front cover.
+2. Remove the toner cartridge (it may be connected to the drum unit).
+3. Pull out the drum unit component directly.
+4. Remove the new drum unit packaging and remove all protective caps.
+5. Insert the new drum unit until it clicks into place.
+6. Reinstall the toner cartridge into the new drum.
+7. Close the front cover.
+8. **Reset the drum counter** — This is crucial. The printer will not recognize the new drum unless the counter is reset through the control panel menu.
+9. Print a test page.
 
-### 推荐纸张规格
-
-| 属性 | 建议 |
-|------|------|
-| 克重 | 75-90 g/m²（20-24 lb）通用 |
-| 白度 | 90+ ISO 以获得清晰文字 |
-| 含水量 | 4-6%（太干 = 静电/卡纸；太潮 = 卷曲/褶皱） |
-| 表面 | 激光打印机用光滑、未涂布纸 |
-| 尺寸 | A4、Letter、Legal（查看打印机规格） |
-
-### 纸张存储最佳实践
-
-- 使用前将纸张保存在原令包装中
-- 将纸张平放在架子上，不要放在地板上（地板湿气导致卷曲）
-- 存储区域保持30-50%相对湿度
-- 不要同时打开多令纸
-- 装纸前将纸叠扇形展开以分离纸张并减少静电
-- 长期存储时，将纸张放在带干燥剂的密封柜中
-
-### 应避免的纸张类型
-
-- 已打印过的纸张（除非使用手动进纸处理特定介质）
-- 纹理过重或粗糙的纸张（可能损坏辊子）
-- 带夹子、订书钉或便利贴的纸张
-- 潮湿或褶皱的纸张
-- 未标注激光打印机适用的标签或透明胶片（可能在定影器中熔化）
-
-!!! danger "激光与喷墨介质"
-    切勿在激光打印机中使用喷墨专用透明胶片或标签 — 热量会熔化粘合剂并造成严重卡纸。始终使用适用于您打印机类型的介质。
+!!! warning "Reset Counter"
+    Forgetting to reset the drum counter is the most common mistake. The printer will continue to display "Replace Drum" and may stop printing. Please refer to the user manual for your model for the exact reset procedure.
 
 ---
 
-## 维护套件
+## Waste Toner Container
 
-维护套件通常包括：
+### When to Replace
 
-- 定影器单元
-- 转印辊
-- 搓纸辊（所有纸盒）
-- 分离垫
-- 进纸辊
+- The display shows "Waste Toner Full" or "Waste Toner Soon to Be Full"
+- Print quality decreases due to carbon powder buildup
 
-### 更换间隔
+### Operation Procedure
 
-通常每100,000-200,000页，视打印机型号而定。在打印机配置页中查看维护套件寿命计数器。
-
-!!! warning "建议专业安装"
-    维护套件更换涉及拆卸打印机的重要部分。请安排授权服务提供商执行，以避免损坏并确保保修覆盖。
-
----
-
-## 处置与回收
-
-| 物品 | 处置方法 |
-|------|----------|
-| 碳粉 / 墨盒 | 制造商回收计划（HP、Canon、Brother等均提供免费回收） |
-| 废粉 | 密封在塑料袋中；作为电子废物处置 — 不要放入普通垃圾 |
-| 硒鼓单元 | 制造商回收或电子废物设施 |
-| 旧纸张 | 标准纸张回收 |
-| 包装 | 纸板和塑料回收 |
+1. Turn off the printer and disconnect the power.
+2. Open the front or side service cover (location varies by model).
+3. Carefully pull out the waste toner container — keep it level to avoid leakage.
+4. Seal the old waste toner container in a plastic bag.
+5. Install a new waste toner container, push it in until it clicks into place.
+6. Close the cover, plug in, and turn on the printer.
+7. Reset the waste toner counter as prompted.
 
 ---
 
-## 耗材库存日志
+## Ink Cartridge Replacement (Inkjet Printer)
 
-使用此模板跟踪耗材库存：
+### When to Replace
 
-| 物品 | 型号 / 部件号 | 打印机型号 | 库存 | 订购中 | 重新订购水平 | 上次订购 |
-|------|--------------|------------|------|--------|-------------|----------|
-| 碳粉（黑色） | | | | | | |
-| 碳粉（青色） | | | | | | |
-| 硒鼓单元 | | | | | | |
-| 废粉 | | | | | | |
-| 纸张（A4） | | | | | | |
+- The display shows low ink level or empty
+- Print output is missing color or has horizontal white lines
+- The ink drop icon is on
+
+### Operation Procedure
+
+1. Power on.
+2. Open the ink cartridge service door (the carriage will move to the center).
+3. Wait for the carriage to stop moving.
+4. Press the empty ink cartridge to release it, then pull it out.
+5. Remove the new ink cartridge from the packaging and remove the protective tape from the nozzle.
+    - **Do not** touch the copper contacts or nozzle plate.
+6. Insert the new ink cartridge into the correct slot (match the color label) and push it up until it clicks into place.
+7. Close the service door.
+8. The printer will run an automatic priming cycle.
+9. Print a nozzle check pattern to confirm that all colors are jetting normally.
+10. If there are missing lines, run the printhead cleaning tool (up to 1-2 cycles, then run a deep clean).
 
 ---
 
-*下一篇：[纸张处理](paper-handling.md)*
+## Paper Selection and Storage
+
+### Recommended Paper Specifications
+
+| Attribute | Suggestion |
+|----------|-----------|
+| Weight | 75-90 g/m² (20-24 lb) universal |
+| Whiteness | 90+ ISO for clear text |
+| Moisture Content | 4-6% (too dry = static/curl; too wet = curl/wrinkle) |
+| Surface | Smooth, uncoated paper for laser printers |
+| Size | A4, Letter, Legal (check printer specifications) |
+
+### Best Practices for Paper Storage
+
+- Keep the paper in the original packaging before use
+- Lay the paper flat on a shelf, not on the floor (floor moisture can cause curling)
+- Maintain a relative humidity of 30-50%
+- Do not open multiple reams at once
+- Fan out the paper stack before loading to separate the sheets and reduce static
+- Store for long periods in a sealed cabinet with a desiccant
+
+### Papers to Avoid
+
+- Printed paper (unless using manual feed for specific media)
+- Textured or rough paper (may damage rollers)
+- Papers with clips, staples, or stickers
+- Wet or crumpled paper
+- Labels or transparent film not marked for use in laser printers (may melt in the fuser)
+
+!!! danger "Laser vs. Inkjet Media"
+    Do not use inkjet-specific transparent film or labels in laser printers — heat will melt the adhesive and cause severe paper jams. Always use media suitable for your printer type.
+
+---
+
+## Maintenance Kit
+
+Maintenance kits typically include:
+
+- Fuser unit
+- Transfer roller
+- Feed roller (for all paper trays)
+- Separation pad
+- Feed roller
+
+### Replacement Interval
+
+Typically every 100,000-200,000 pages, depending on the printer model. Check the printer configuration page for the maintenance kit life counter.
+
+!!! warning "Recommended Professional Installation"
+    Replacing maintenance kits involves disassembling important parts of the printer. Please arrange for an authorized service provider to perform it to avoid damage and ensure warranty coverage.
+
+---
+
+## Disposal and Recycling
+
+| Item | Disposal Method |
+|------|----------------|
+| Toner / Ink | Manufacturer's recycling program (HP, Canon, Brother, etc. offer free recycling) |
+| Waste Toner | Seal in a plastic bag; dispose of as electronic waste — do not put in regular trash |
+| Drum Unit | Manufacturer's recycling or electronic waste facility |
+| Old Paper | Standard paper recycling |
+| Packaging | Cardboard and plastic recycling |
+
+---
+
+## Consumables Inventory Log
+
+Use this template to track consumables inventory:
+
+| Item | Model/Part Number | Printer Model | Inventory | On Order | Reorder Level | Last Ordered |
+|------|-------------------|---------------|-----------|----------|---------------|--------------|
+| Toner (Black) | | | | | | |
+| Toner (Cyan) | | | | | | |
+| Drum Unit | | | | | | |
+| Waste Toner | | | | | | |
+| Paper (A4) | | | | | | |
+
+---
+
+*Next: [Paper Handling](paper-handling.md)*
+
+---
