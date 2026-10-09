@@ -144,6 +144,24 @@ This site can also be deployed to Netlify, Vercel, Cloudflare Pages, or any stat
 
 ---
 
+## CI/CD Workflows
+
+This repository uses **5 GitHub Actions workflows** to automate the full documentation lifecycle. `main` is branch-protected (no direct push — all automatic changes go through PRs for human review).
+
+| Workflow | Trigger | What it does |
+|----------|---------|--------------|
+| `deploy.yml` | Push to `main` (docs/mkdocs.yml/export_pdf.py/workflow paths) or manual | Builds site once (artifact), deploys to GitHub Pages, builds bilingual PDFs and opens a PR if they changed |
+| `release.yml` | Push tag `v*`, or manual (enter tag name) | Builds bilingual PDFs and creates a **GitHub Release** with EN+ZH PDF attachments. On manual trigger it auto-creates the tag first |
+| `auto-translate.yml` | Push to `main` (docs/ changes) or manual | Incrementally translates changed English docs to Chinese (`*.zh.md`), opens a PR |
+| `ai-style-check.yml` | Any PR touching `docs/**/*.md`, or manual | Runs AI writing-style review (Zhipu GLM-4-Flash) and posts an advisory report as a PR comment (does not block) |
+| `ai-style-fix.yml` | Manual only (choose target branch) | AI auto-fixes English doc style issues, opens a PR for human review |
+
+**Release artifacts**: https://github.com/tiffany3222900/knowledge-management-system/releases (e.g. `v1.0.0`, `v1.0.1` — each contains `Printer_Maintenance_Manual_EN.pdf` + `_ZH.pdf`).
+
+> **Note**: All Actions are pinned to Node 24 runtimes (checkout@v5, setup-python@v6, etc.) to avoid Node 20 deprecation warnings.
+
+---
+
 ## Technology Stack
 
 | Component | Version / Detail |
