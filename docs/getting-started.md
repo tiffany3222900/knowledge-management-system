@@ -126,3 +126,5 @@ Maintain the following conditions for optimal printer performance:
 *Next: [Daily Checklist](daily-checklist.md)*
 
 ---
+
+---
