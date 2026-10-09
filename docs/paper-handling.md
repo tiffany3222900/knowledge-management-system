@@ -98,7 +98,8 @@ Paper jams can occur in several areas. The printer's control panel usually displ
     - Clean with isopropyl alcohol if dusty (see [Cleaning](cleaning.md)).
     - If the roller surface is smooth/glazed, it needs replacement.
 6. Fan and reload the paper, ensuring guides are correctly adjusted.
-7. Reinsert the cassette and test.
+7. Reinsert the cassette firmly until it clicks.
+8. Test.
 
 ### Preventing Pickup Jams
 
@@ -218,16 +219,18 @@ If the same printer jams repeatedly (2+ times per day), investigate these causes
 
 Always perform these steps after any jam:
 
-1. [ ] All covers are fully closed and latched
-2. [ ] No torn paper remains inside (use flashlight)
-3. [ ] Paper cassette is reinserted firmly
-4. [ ] Printer displays "Ready" (no error)
-5. [ ] Test page prints successfully
-6. [ ] Print quality is normal (no streaks from toner spill)
-7. [ ] Record the jam in the service log (date, location, cause)
+1. All covers are fully closed and latched
+2. No torn paper remains inside (use flashlight)
+3. Paper cassette is reinserted firmly
+4. Printer displays "Ready" (no error)
+5. Test page prints successfully
+6. Print quality is normal (no streaks from toner spill)
+7. Record the jam in the service log (date, location, cause)
 
 ---
 
 *Next: [Troubleshooting](troubleshooting.md)*
+
+---
 
 ---
