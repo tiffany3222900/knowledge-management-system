@@ -92,6 +92,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # full history needed to compare EN/ZH last-commit times
+
+      - name: Check EN-ZH sync (skip PDF build unless bilingual content is in sync)
+        run: |
+          IN_SYNC=true
+          for en in docs/*.md; do
+            case "$en" in *.zh.md) continue;; esac
+            base="${en%.md}"
+            zh="${base}.zh.md"
+            if [ ! -f "$zh" ]; then
+              echo "::warning::No ZH translation for $en — PDF build skipped"
+              IN_SYNC=false
+              continue
+            fi
+            en_ts=$(git log -1 --format=%ct -- "$en")
+            zh_ts=$(git log -1 --format=%ct -- "$zh")
+            if [ "$en_ts" -gt "$zh_ts" ]; then
+              echo "::warning::EN newer than ZH: $en — PDF build skipped"
+              IN_SYNC=false
+            fi
+          done
+          if [ "$IN_SYNC" = "false" ]; then
+            echo "EN and ZH content not in sync — skipping bilingual PDF build."
+            exit 0
+          fi
+          echo "EN and ZH content in sync — proceeding with bilingual PDF build."
 
       - name: Setup Python
         uses: actions/setup-python@v6
