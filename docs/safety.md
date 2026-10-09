@@ -1,9 +1,10 @@
 ---
+---
 # Safety Guidelines
 
 ## Overview
 
-Printer maintenance involves electrical, thermal, mechanical, and chemical hazards. Following these safety guidelines protects both personnel and equipment. All maintenance personnel must read and understand this section before performing any procedure in this manual.
+Printer maintenance involves electrical, thermal, mechanical, and chemical hazards. Adhering to these safety guidelines is essential for protecting personnel and equipment. All maintenance personnel must read and understand this section before performing any procedure in this manual.
 
 ---
 
@@ -228,5 +229,7 @@ Post this checklist near every printer:
 ---
 
 *Next: [FAQ](faq.md)*
+
+---
 
 ---
