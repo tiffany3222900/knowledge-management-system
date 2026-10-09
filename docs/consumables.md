@@ -1,9 +1,10 @@
 ---
+---
 # Consumables Management
 
 ## Overview
 
-Consumables include toner cartridges, ink cartridges, drum units, waste toner containers, maintenance kits, and paper. Proper management ensures consistent print quality, avoids unexpected downtime, and maximizes the lifespan of each component.
+Consumables encompass toner cartridges, ink cartridges, drum units, waste toner containers, maintenance kits, and paper. Effective management guarantees consistent print quality, prevents unexpected downtime, and extends the lifespan of each component.
 
 ---
 
@@ -31,14 +32,14 @@ Order → Receive → Store → Install → Monitor → Replace → Dispose
 
 ### When to Replace
 
-- Control panel displays "Toner Low" or "Toner Empty"
-- Printouts are faded or have light vertical streaks
+- The control panel displays "Toner Low" or "Toner Empty"
+- Printouts are faded or exhibit light vertical streaks
 - The toner LED is lit amber
 
 ### Procedure (Laser Printer)
 
 1. Prepare — Have the new cartridge ready. Shake it gently 5–6 times side to side to distribute toner evenly.
-2. Power on the printer must be on for the cartridge to seat correctly.
+2. Ensure the printer is powered on for the cartridge to seat correctly.
 3. Open the front cover fully.
 4. Remove the old cartridge — grip the handle and pull straight out.
 5. Prepare the new cartridge — remove the protective seal by pulling the tab firmly in the direction indicated. Do not touch the drum surface.
@@ -68,7 +69,7 @@ The drum (photosensitive cylinder) is the component that transfers the toner ima
 
 ### When to Replace
 
-- Control panel displays "Drum Life End" or "Replace Drum"
+- The control panel displays "Drum Life End" or "Replace Drum"
 - Printouts show repeating spots or smudges at regular intervals (measure the interval — it matches the drum circumference)
 - Faded or ghost images even with a new toner cartridge
 
@@ -93,7 +94,7 @@ The drum (photosensitive cylinder) is the component that transfers the toner ima
 
 ### When to Replace
 
-- Display shows "Waste Toner Full" or "Waste Toner Box Near Full"
+- The display shows "Waste Toner Full" or "Waste Toner Box Near Full"
 - Print quality degrades due to toner buildup
 
 ### Procedure
@@ -112,7 +113,7 @@ The drum (photosensitive cylinder) is the component that transfers the toner ima
 
 ### When to Replace
 
-- Display shows ink level low or empty
+- The display shows ink level low or empty
 - Printouts have missing colors or horizontal white lines
 - The ink droplet icon is lit
 
@@ -212,5 +213,7 @@ Track consumable stock with this template:
 ---
 
 *Next: [Paper Handling](paper-handling.md)*
+
+---
 
 ---
