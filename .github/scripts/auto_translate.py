@@ -18,30 +18,58 @@ import time
 import requests
 
 # ─────────────────────────────────────────────────────────────────────
-# Translation prompt
+# Translation prompt (incremental: update existing Chinese in place)
 # ─────────────────────────────────────────────────────────────────────
 TRANSLATE_PROMPT = """You are a professional technical translator specializing in IT and hardware documentation.
-Translate the following English Markdown into Simplified Chinese.
+You are given a new English Markdown source and its EXISTING Chinese translation.
+The English source has been UPDATED. Update the existing Chinese translation to match.
 
 ## Rules:
-1. Translate all visible text: headings, paragraphs, list items, table cells, admonition titles.
-2. Preserve ALL Markdown syntax exactly: # headings, **bold**, *italic*, `inline code`, ```code blocks```, [links](url), !!! admonitions, tables, numbered/bullet lists, horizontal rules.
-3. Do NOT translate: code block contents, URLs, file paths, shell commands, brand names (HP, Brother, Canon), model numbers, technical acronyms (CPU, USB, PDF, LCD), MkDocs directives.
-4. Admonition type keywords (warning, caution, note, info, tip) stay in English; only translate the title and body text.
-5. Keep the same line count and structure as much as possible.
-6. Output ONLY the translated Markdown. No explanations, no wrapping code fences.
+1. Translate all NEW or CHANGED English content into Simplified Chinese.
+2. For UNCHANGED content, keep the existing Chinese translation EXACTLY as-is —
+   do not reword, do not improve style, do not change terminology (e.g. keep
+   "墨粉" if the existing translation uses it; only change it if the English
+   source itself changed meaning).
+3. If English content was removed, remove the corresponding Chinese text.
+4. Preserve ALL Markdown syntax exactly: # headings, **bold**, *italic*,
+   `inline code`, ```code blocks```, [links](url), !!! admonitions, tables,
+   numbered/bullet lists, horizontal rules.
+5. Do NOT translate: code block contents, URLs, file paths, shell commands,
+   brand names (HP, Brother, Canon), model numbers, technical acronyms
+   (CPU, USB, PDF, LCD), MkDocs directives.
+6. Admonition type keywords (warning, caution, note, info, tip) stay in
+   English; only translate the title and body text.
+7. Output ONLY the updated Markdown. No explanations, no wrapping code fences.
 """
 
 
-def call_ai_translate(filepath, content):
-    """Call Zhipu GLM API to translate content."""
+def call_ai_translate(filepath, content, existing_zh=None):
+    """Call Zhipu GLM API to translate/update content.
+
+    When existing_zh is provided, the AI updates the existing translation
+    in place (incremental mode) instead of re-translating from scratch.
+    """
     api_key = os.environ.get("ZHIPU_API_KEY")
     model = os.environ.get("ZHIPU_MODEL", "glm-4-flash")
 
     if not api_key:
         raise RuntimeError("ZHIPU_API_KEY is not set")
 
-    print(f"  Translating {filepath} ...")
+    print(f"  {'Updating' if existing_zh else 'Translating'} {filepath} ...")
+
+    if existing_zh:
+        user_content = (
+            f"Update the Chinese translation to match this English file "
+            f"({filepath}). Keep unchanged parts exactly as they are.\n\n"
+            f"--- NEW ENGLISH ---\n{content}\n---\n\n"
+            f"--- EXISTING CHINESE ---\n{existing_zh}\n---"
+        )
+    else:
+        user_content = (
+            f"Translate this Markdown file ({filepath}) to Simplified Chinese.\n"
+            f"Output ONLY the translated content.\n\n"
+            f"---\n{content}\n---"
+        )
 
     resp = requests.post(
         "https://open.bigmodel.cn/api/paas/v4/chat/completions",
@@ -53,16 +81,9 @@ def call_ai_translate(filepath, content):
             "model": model,
             "messages": [
                 {"role": "system", "content": TRANSLATE_PROMPT},
-                {
-                    "role": "user",
-                    "content": (
-                        f"Translate this Markdown file ({filepath}) to Simplified Chinese.\n"
-                        f"Output ONLY the translated content.\n\n"
-                        f"---\n{content}\n---"
-                    ),
-                },
+                {"role": "user", "content": user_content},
             ],
-            "temperature": 0.3,
+            "temperature": 0.1,
             "max_tokens": 8000,
         },
         timeout=180,
@@ -127,15 +148,19 @@ def main():
             with open(filepath, "r", encoding="utf-8") as f:
                 english = f.read()
 
-            chinese = call_ai_translate(filepath, english)
-
             zh_path = filepath.replace(".md", ".zh.md")
 
-            # Skip if translation is identical to existing
+            # Read existing Chinese translation if present (incremental mode)
+            existing_zh = None
             if os.path.exists(zh_path):
                 with open(zh_path, "r", encoding="utf-8") as f:
-                    existing = f.read()
-                if existing.strip() == chinese.strip():
+                    existing_zh = f.read()
+
+            chinese = call_ai_translate(filepath, english, existing_zh)
+
+            # Skip if translation is identical to existing
+            if existing_zh is not None:
+                if existing_zh.strip() == chinese.strip():
                     print(f"    -> unchanged, skipping {zh_path}")
                     continue
 
