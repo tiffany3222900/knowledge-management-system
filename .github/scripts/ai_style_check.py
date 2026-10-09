@@ -81,11 +81,19 @@ If the document is clean, say so explicitly.
 
 
 def get_changed_md_files(repo, pr_number):
-    """Return list of changed markdown file paths in this PR."""
+    """Return list of changed markdown file paths in this PR.
+
+    Excludes *.zh.md files: they are Chinese translations and the English
+    style guide does not apply to them.
+    """
     pr = repo.get_pull(pr_number)
     files = []
     for f in pr.get_files():
-        if f.filename.endswith(".md") and f.filename.startswith("docs/"):
+        if (
+            f.filename.endswith(".md")
+            and f.filename.startswith("docs/")
+            and not f.filename.endswith(".zh.md")
+        ):
             files.append(f.filename)
     return files
 

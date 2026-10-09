@@ -123,14 +123,18 @@ def call_ai_fix(filepath, content):
 
 
 def get_all_md_files(repo, branch):
-    """Get all docs/*.md files from a branch."""
+    """Get all docs/*.md files from a branch.
+
+    Excludes *.zh.md files: they are Chinese translations and must not be
+    processed by the English style guide (doing so corrupted them before).
+    """
     files = []
     contents = repo.get_contents("docs", ref=branch)
     while contents:
         item = contents.pop(0)
         if item.type == "dir":
             contents.extend(repo.get_contents(item.path, ref=branch))
-        elif item.name.endswith(".md"):
+        elif item.name.endswith(".md") and not item.name.endswith(".zh.md"):
             files.append(item.path)
     return sorted(files)
 
