@@ -1,13 +1,14 @@
 ---
+---
 # Printer Maintenance Manual
 
-**A practical guide to keeping your office printers reliable, efficient, and long-lasting.**
+**A practical guide to maintaining office printers for reliability, efficiency, and longevity.**
 
 ---
 
 ## Welcome
 
-This manual provides standardized procedures for the daily operation, maintenance, and troubleshooting of office printers. Consistently following these guidelines helps reduce downtime, extend hardware lifespan, improve print quality, and lower the total cost of ownership.
+This manual offers standardized procedures for the daily operation, maintenance, and troubleshooting of office printers. Adhering to these guidelines consistently aids in reducing downtime, extending hardware life, enhancing print quality, and lowering the total cost of ownership.
 
 !!! info "Audience"
     This document is intended for IT support staff, facility managers, and designated printer operators. End users may also refer to the **Paper Handling** and **Troubleshooting** sections for common issues.
@@ -18,24 +19,24 @@ This manual provides standardized procedures for the daily operation, maintenanc
 
 | Section | Purpose | When to Use |
 |---------|---------|-------------|
-| [Getting Started](getting-started.md) | Printer overview, components, and first-time setup | Onboarding a new operator or device |
-| [Daily Checklist](daily-checklist.md) | Routine inspection tasks | Every morning / end of day |
-| [Cleaning & Care](cleaning.md) | Step-by-step cleaning procedures | Weekly or when print quality drops |
-| [Consumables](consumables.md) | Toner, ink, drum, and waste toner replacement | When supply alerts appear |
-| [Paper Handling](paper-handling.md) | Loading paper and resolving jams | Paper jam or misfeed errors |
-| [Troubleshooting](troubleshooting.md) | Symptom-to-solution reference | Printer malfunction or error codes |
-| [Safety](safety.md) | PPE, electrical, and thermal safety | Before any maintenance task |
-| [FAQ](faq.md) | Quick answers to common questions | General inquiries |
+| [Getting Started](getting-started.md) | Printer overview, components, and initial setup | Upon onboarding a new operator or device |
+| [Daily Checklist](daily-checklist.md) | Routine inspection tasks | At the start and end of each day |
+| [Cleaning & Care](cleaning.md) | Detailed cleaning procedures | Weekly or when print quality degrades |
+| [Consumables](consumables.md) | Replacement of toner, ink, drum, and waste toner | Upon supply alerts |
+| [Paper Handling](paper-handling.md) | Paper loading and jam resolution | In the event of paper jam or misfeed errors |
+| [Troubleshooting](troubleshooting.md) | Symptom-to-resolution reference | When the printer malfunctions or error codes appear |
+| [Safety](safety.md) | Personal protective equipment (PPE), electrical, and thermal safety | Prior to any maintenance task |
+| [FAQ](faq.md) | Quick responses to frequent questions | For general inquiries |
 
 ---
 
 ## Key Principles
 
-1. **Preventive over reactive** — routine maintenance costs far less than emergency repairs.
-2. **Clean hands, clean machine** — always power off and unplug before internal cleaning.
-3. **Use approved supplies** — third-party toner and paper can cause damage and void warranties.
-4. **Log every action** — record maintenance in the service log for trend analysis.
-5. **When in doubt, escalate** — do not disassemble components beyond this manual's scope.
+1. **Preventive maintenance is preferable to reactive** — routine maintenance is significantly less costly than emergency repairs.
+2. **Maintain cleanliness** — always power off and disconnect before performing internal cleaning.
+3. **Utilize authorized supplies** — third-party toner and paper may cause damage and invalidate warranties.
+4. **Document every action** — keep a record of maintenance in the service log for trend analysis.
+5. **Seek escalation when necessary** — do not disassemble components beyond the scope of this manual.
 
 ---
 
@@ -51,3 +52,5 @@ Record each maintenance event in the printer service log:
 
 *Last updated: 2026-09-10*
 
+
+---
