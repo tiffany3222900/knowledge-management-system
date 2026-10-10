@@ -24,7 +24,8 @@ If you just cloned this repo and `.venv` does not exist yet:
 ```bat
 cd C:\Github\knowledge-management-system
 python -m venv .venv
-.venv\Scripts\python.exe -m pip install mkdocs-material mkdocs-print-site-plugin mkdocs-static-i18n playwright pikepdf
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m playwright install chromium
 ```
 
 > **Note**: `.venv` is gitignored — it is not stored in GitHub. Each clone needs its own venv.
@@ -83,6 +84,7 @@ When you edit documentation:
 knowledge-management-system/
 ├── mkdocs.yml                  # MkDocs configuration and navigation
 ├── README.md                   # This file
+├── requirements.txt            # Pinned Python dependencies
 ├── .gitignore                  # Excludes site/, .venv/, etc.
 ├── export_pdf.py               # PDF export script (Playwright + Chromium; args: en | zh)
 ├── Printer_Maintenance_Manual_EN.pdf  # Generated PDF - English (committed)
