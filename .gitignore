@@ -1,5 +1,8 @@
 # MkDocs build output
 site/
+site_pdf_*/
+mkdocs.pdf.*.yml
+*.tmp.pdf
 
 # Python
 __pycache__/

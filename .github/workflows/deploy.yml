@@ -6,6 +6,7 @@ on:
     paths:
       - 'docs/**'
       - 'mkdocs.yml'
+      - 'requirements.txt'
       - 'export_pdf.py'
       - '.github/workflows/**'
   workflow_dispatch:  # allow manual trigger
@@ -35,11 +36,12 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs-material mkdocs-print-site-plugin mkdocs-static-i18n
+          pip install -r requirements.txt
 
       - name: Build site
         run: mkdocs build
@@ -124,11 +126,12 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs-material mkdocs-print-site-plugin mkdocs-static-i18n playwright pikepdf
+          pip install -r requirements.txt
 
       - name: Install Playwright Chromium
         run: playwright install chromium --with-deps
