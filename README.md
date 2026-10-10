@@ -38,7 +38,6 @@ Double-click any `.bat` file in the project root, or run it from the terminal:
 |--------|---------|--------------|
 | `serve.bat` | `serve.bat` | Start local preview at http://127.0.0.1:8000 (auto-reloads on file changes) |
 | `build.bat` | `build.bat` | Build static HTML only (output to `site/` directory) |
-| `deploy.bat` | `deploy.bat` | Build and deploy to GitHub Pages (live site updates in 1–2 min) |
 | `build-pdf.bat` | `build-pdf.bat` | Build site and export both `Printer_Maintenance_Manual_EN.pdf` + `Printer_Maintenance_Manual_ZH.pdf` |
 
 ### Manual commands (without scripts)
@@ -51,9 +50,6 @@ REM Preview locally
 
 REM Build static site
 .venv\Scripts\python.exe -m mkdocs build
-
-REM Deploy to GitHub Pages
-.venv\Scripts\python.exe -m mkdocs gh-deploy --force
 
 REM Export PDFs (bilingual; requires build first)
 .venv\Scripts\python.exe -m mkdocs build
@@ -71,10 +67,11 @@ When you edit documentation:
 1. Edit a file in docs/
 2. Double-click serve.bat  →  preview at http://127.0.0.1:8000
 3. Double-click build-pdf.bat  →  generates EN + ZH PDFs
-4. git add . && git commit && git push  →  CI builds & deploys site, then opens PDF update PR if content changed
+4. git checkout -b feat/... && git commit && git push  →  open PR (triggers strict build check & AI review)
+5. Review & merge to main  →  CI deploys site, translates to ZH, and updates PDFs
 ```
 
-> **Important**: `deploy.bat` is legacy (uses `mkdocs gh-deploy`). The recommended path is to push to `main` and let the GitHub Actions workflow (`deploy.yml`) build and deploy the site. The PDFs are generated separately by `build-pdf.bat` (or by CI in the `build-pdf` job) and committed via PR.
+> **Note**: `main` is branch-protected. Changes are made via feature-branch PRs. Deployments to GitHub Pages are handled automatically by the GitHub Actions workflow (`deploy.yml`) upon merge.
 
 ---
 
@@ -84,14 +81,14 @@ When you edit documentation:
 knowledge-management-system/
 ├── mkdocs.yml                  # MkDocs configuration and navigation
 ├── README.md                   # This file
-├── requirements.txt            # Pinned Python dependencies
+├── requirements.txt            # Pinned Python dependencies (docs & PDF build)
+├── requirements-ci.txt         # Pinned CI dependencies (AI review & translate)
 ├── .gitignore                  # Excludes site/, .venv/, etc.
 ├── export_pdf.py               # PDF export script (Playwright + Chromium; args: en | zh)
 ├── Printer_Maintenance_Manual_EN.pdf  # Generated PDF - English (committed)
 ├── Printer_Maintenance_Manual_ZH.pdf  # Generated PDF - Chinese (committed)
 ├── serve.bat                   # Local preview (double-click)
 ├── build.bat                   # Build static site only
-├── deploy.bat                  # Deploy to GitHub Pages
 ├── build-pdf.bat               # Build + export PDF
 ├── site/                       # Build output (gitignored)
 ├── .venv/                      # Python virtual environment (gitignored)
@@ -148,11 +145,12 @@ This site can also be deployed to Netlify, Vercel, Cloudflare Pages, or any stat
 
 ## CI/CD Workflows
 
-This repository uses **5 GitHub Actions workflows** to automate the full documentation lifecycle. `main` is branch-protected (no direct push — all automatic changes go through PRs for human review).
+This repository uses **6 GitHub Actions workflows** to automate the full documentation lifecycle. `main` is branch-protected (no direct push — all automatic changes go through PRs for human review).
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
-| `deploy.yml` | Push to `main` (docs/mkdocs.yml/export_pdf.py/workflow paths) or manual | Builds site once (artifact) and deploys to GitHub Pages. `build-pdf` job runs a **EN-ZH sync gate**: it only builds bilingual PDFs when every English doc's latest change has a matching, up-to-date `*.zh.md` translation (i.e. after the translation PR is merged); otherwise it skips the PDF build entirely |
+| `pr-check.yml` | Any PR touching `docs/**`, `mkdocs.yml`, `requirements.txt`, or manual | Runs `mkdocs build --strict` to validate build syntax and catch broken internal links before merge |
+| `deploy.yml` | Push to `main` (docs/mkdocs.yml/requirements.txt/export_pdf.py/workflow paths) or manual | Builds site once (artifact) and deploys to GitHub Pages. `build-pdf` job runs a **EN-ZH sync gate**: it only builds bilingual PDFs when every English doc's latest change has a matching, up-to-date `*.zh.md` translation (i.e. after the translation PR is merged); otherwise it skips the PDF build entirely |
 | `release.yml` | Push tag `v*`, or manual (enter tag name) | Builds bilingual PDFs and creates a **GitHub Release** with EN+ZH PDF attachments. On manual trigger it auto-creates the tag first |
 | `auto-translate.yml` | Push to `main` (docs/ changes) or manual | Incrementally translates changed English docs to Chinese (`*.zh.md`), opens a PR |
 | `ai-style-check.yml` | Any PR touching `docs/**/*.md`, or manual | Runs AI writing-style review (Zhipu GLM-4-Flash) and posts an advisory report as a PR comment (does not block) |
@@ -174,7 +172,8 @@ This repository uses **5 GitHub Actions workflows** to automate the full documen
 | mkdocs-static-i18n | 1.3.1 (EN/ZH bilingual, suffix mode) |
 | Playwright | 1.62.0 (PDF export via bundled Chromium) |
 | pikepdf | 10.16.0 (reproducible PDF normalization) |
-| Python | 3.14 (local venv) |
+| Dependencies | Pinned in `requirements.txt` / `requirements-ci.txt` |
+| Python | 3.14 (local venv) / 3.12 (CI) |
 
 ---
 
