@@ -19,3 +19,9 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Vale (ruleset synced at runtime by CI; local debug binaries)
+styles/
+.vale-bin/
+vale.zip
+vale-out.json

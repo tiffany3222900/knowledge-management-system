@@ -1,4 +1,3 @@
----
 # Printer Maintenance Manual
 
 **A practical guide to keeping your office printers reliable, efficient, and long-lasting.**
