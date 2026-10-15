@@ -1,4 +1,3 @@
----
 # Safety Guidelines
 
 ## Overview

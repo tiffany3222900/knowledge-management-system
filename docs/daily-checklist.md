@@ -1,4 +1,3 @@
----
 # Daily Maintenance Checklist
 
 ## Overview
