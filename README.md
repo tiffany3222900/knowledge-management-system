@@ -153,7 +153,7 @@ This repository uses **7 GitHub Actions workflows** to automate the full documen
 | `deploy.yml` | Push to `main` (docs/mkdocs.yml/requirements.txt/export_pdf.py/workflow paths) or manual | Builds site once (artifact) and deploys to GitHub Pages. `build-pdf` job runs a **EN-ZH sync gate**: it only builds bilingual PDFs when every English doc's latest change has a matching, up-to-date `*.zh.md` translation (i.e. after the translation PR is merged); otherwise it skips the PDF build entirely |
 | `release.yml` | Push tag `v*`, or manual (enter tag name) | Builds bilingual PDFs and creates a **GitHub Release** with EN+ZH PDF attachments. On manual trigger it auto-creates the tag first |
 | `auto-translate.yml` | Push to `main` (docs/ changes) or manual | Incrementally translates changed English docs to Chinese (`*.zh.md`), opens a PR |
-| `ai-style-check.yml` | Any PR touching `docs/**/*.md`, or manual | Runs AI writing-style review (Zhipu GLM-4-Flash) and posts an advisory report as a PR comment (does not block) |
+| `ai-style-check.yml` | Manual only (choose target branch; optional PR number) | Runs AI writing-style review (Zhipu GLM-4-Flash) on demand and posts an advisory report as a PR comment (does not block) |
 | `ai-style-fix.yml` | Manual only (choose target branch) | AI auto-fixes English doc style issues, opens a PR for human review |
 | `lint.yml` | Any PR touching `docs/**`, `*.md`, `.vale.ini`, `.lycheeignore`, or manual | Deterministic gates in **advisory mode** (never block): **Vale** (Microsoft ruleset) annotates style issues on the diff; **Lychee** reports broken links in `docs/**/*.md` + `README.md` as a PR comment. `*.zh.md` is excluded from Vale (human-reviewed) |
 

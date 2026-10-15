@@ -1,10 +1,12 @@
 name: AI Writing Style Check
 
 on:
-  pull_request:
-    paths:
-      - 'docs/**/*.md'
-  workflow_dispatch:  # allow manual trigger
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Optional PR number to review (leave empty to auto-detect from the selected branch)'
+        required: false
+        type: number
 
 permissions:
   contents: read
@@ -34,7 +36,7 @@ jobs:
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           ZHIPU_MODEL: glm-4-flash
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ inputs.pr_number }}
           # Set to "true" to block merge on D-rated reviews.
           # Leave as "false" for advisory-only mode.
           FAIL_ON_CRITICAL: 'false'
