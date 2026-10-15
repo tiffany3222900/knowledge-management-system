@@ -67,7 +67,7 @@ When you edit documentation:
 1. Edit a file in docs/
 2. Double-click serve.bat  →  preview at http://127.0.0.1:8000
 3. Double-click build-pdf.bat  →  generates EN + ZH PDFs
-4. git checkout -b feat/... && git commit && git push  →  open PR (triggers strict build check & AI review)
+4. git checkout -b feat/... && git commit && git push  →  open PR (triggers strict build check, Vale & Lychee; AI review is manual)
 5. Review & merge to main  →  CI deploys site, translates to ZH, and updates PDFs
 ```
 
@@ -83,7 +83,9 @@ knowledge-management-system/
 ├── README.md                   # This file
 ├── requirements.txt            # Pinned Python dependencies (docs & PDF build)
 ├── requirements-ci.txt         # Pinned CI dependencies (AI review & translate)
-├── .gitignore                  # Excludes site/, .venv/, etc.
+├── .gitignore                  # Excludes site/, .venv/, styles/, etc.
+├── .vale.ini                   # Vale config (Microsoft ruleset; *.zh.md skipped)
+├── .lycheeignore               # Lychee link-checker exclusions
 ├── export_pdf.py               # PDF export script (Playwright + Chromium; args: en | zh)
 ├── Printer_Maintenance_Manual_EN.pdf  # Generated PDF - English (committed)
 ├── Printer_Maintenance_Manual_ZH.pdf  # Generated PDF - Chinese (committed)
@@ -92,6 +94,9 @@ knowledge-management-system/
 ├── build-pdf.bat               # Build + export PDF
 ├── site/                       # Build output (gitignored)
 ├── .venv/                      # Python virtual environment (gitignored)
+├── .github/
+│   ├── workflows/              # 7 CI/CD workflows (see CI/CD Workflows below)
+│   └── scripts/                # AI review / fix / translate scripts
 └── docs/
     ├── index.md                # Home / overview
     ├── getting-started.md      # Introduction and prerequisites
