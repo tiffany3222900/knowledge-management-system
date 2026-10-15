@@ -1,0 +1,45 @@
+name: Lint Docs (Vale + Lychee)
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '*.md'
+      - '.vale.ini'
+      - '.lycheeignore'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write   # Vale annotations + Lychee PR comment
+
+jobs:
+  vale:
+    name: Vale Style Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Run Vale
+        uses: vale-cli/vale-action@v3.0.0
+        with:
+          files: docs
+          fail_on_error: false   # advisory mode: annotate, never block
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lychee:
+    name: Lychee Link Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --no-progress 'docs/**/*.md' 'README.md'
+          fail: false   # advisory mode: report broken links, never block
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
