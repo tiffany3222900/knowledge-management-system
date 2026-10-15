@@ -6,8 +6,8 @@
 ## Test cases
 
 - [Missing internal file](does-not-exist.md) — should be reported: file not found
-- [Invalid domain](https://example.invalid/toner-guide) — should be reported: unresolvable domain
-- [404 external page](https://www.example.com/no-such-page) — should be reported: HTTP 404
+- [Nonexistent domain](https://definitely-not-a-real-domain-xyz123.com/toner-guide) — should be reported: DNS failure
+- [404 external page](https://httpstat.us/404) — should be reported: HTTP 404
 - [Ignored GitHub edit link](https://github.com/tiffany3222900/knowledge-management-system/edit/main/docs/faq.md) — should be EXCLUDED by .lycheeignore
 - [Existing internal file](faq.md) — should pass
-- [Valid external site](https://www.example.com) — should pass
+- [Valid external site](https://www.wikipedia.org) — should pass
