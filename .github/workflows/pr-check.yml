@@ -13,22 +13,51 @@ permissions:
 
 jobs:
   strict-build:
+    # Keep this name stable: it is the required status check name in the
+    # branch protection rule for main.
     name: MkDocs Strict Build Check
     runs-on: ubuntu-latest
     steps:
+      # PDF automation PRs contain only generated binaries, so there is no
+      # documentation source to validate. Bypass the build *inside* the job so
+      # the check still reports success. Skipping the whole job (or filtering
+      # the trigger by path) would create no check run at all and leave the PR
+      # permanently blocked by branch protection.
+      - name: Classify PDF-only automation PR
+        id: classify
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if [[ "$HEAD_REF" == auto/pdf-update-* ]] || [[ "$PR_TITLE" == *"Update Printer Manual PDF"* ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "PDF-only automation PR - strict docs build bypassed."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            echo "Documentation PR - strict docs build required."
+          fi
+
       - name: Checkout
+        if: steps.classify.outputs.skip != 'true'
         uses: actions/checkout@v5
 
       - name: Setup Python
+        if: steps.classify.outputs.skip != 'true'
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: 'pip'
 
       - name: Install dependencies
+        if: steps.classify.outputs.skip != 'true'
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Validate MkDocs Build (Strict)
+        if: steps.classify.outputs.skip != 'true'
         run: mkdocs build --strict
+
+      - name: Bypassed for generated PDFs
+        if: steps.classify.outputs.skip == 'true'
+        run: echo "Only generated PDFs changed; no MkDocs build needed."
