@@ -184,7 +184,11 @@ jobs:
 
           BRANCH="auto/pdf-update-$(date +%Y%m%d-%H%M%S)"
           git checkout -b "$BRANCH"
-          git commit -m "docs: update generated PDFs [skip ci]"
+          # Do NOT add [skip ci] here. It suppresses the PR Build Check workflow,
+          # which is a required status check on main; without a check run the
+          # PDF PR stays BLOCKED forever. pr-check.yml short-circuits PDF-only
+          # PRs to success while still reporting the required check.
+          git commit -m "docs: update generated PDFs"
           git push origin "$BRANCH"
           echo "PDFs pushed to branch $BRANCH"
 
