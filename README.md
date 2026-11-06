@@ -150,14 +150,17 @@ This site can also be deployed to Netlify, Vercel, Cloudflare Pages, or any stat
 
 ## CI/CD Workflows
 
-This repository uses **7 GitHub Actions workflows** to automate the full documentation lifecycle. `main` is branch-protected (no direct push — all automatic changes go through PRs for human review).
+This repository uses **8 GitHub Actions workflows** to automate the full documentation lifecycle. `main` is branch-protected (no direct push — all automatic changes go through PRs for human review).
+
+Documentation changes flow through a **sequential two-stage pipeline**: `auto-translate.yml` runs first (stage 1), and `pdf-build.yml` only builds the bilingual PDFs afterwards (stage 2). PDFs are never generated while a translation PR is still pending, so the exported manuals always reflect translations that have actually landed on `main`.
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
 | `pr-check.yml` | Any PR touching `docs/**`, `mkdocs.yml`, `requirements.txt`, or manual | Runs `mkdocs build --strict` to validate build syntax and catch broken internal links before merge |
-| `deploy.yml` | Push to `main` (docs/mkdocs.yml/requirements.txt/export_pdf.py/workflow paths) or manual | Builds site once (artifact) and deploys to GitHub Pages. `build-pdf` job runs a **EN-ZH sync gate**: it only builds bilingual PDFs when every English doc's latest change has a matching, up-to-date `*.zh.md` translation (i.e. after the translation PR is merged); otherwise it skips the PDF build entirely |
+| `deploy.yml` | Push to `main` (docs/mkdocs.yml/requirements.txt/export_pdf.py/workflow paths) or manual | Builds the MkDocs site once (artifact) and deploys it to GitHub Pages. Site-only — PDF generation is not part of this workflow |
+| `auto-translate.yml` | Push to `main` that changes English `docs/*.md` (Chinese-only pushes excluded), or manual | **Stage 1.** Incrementally translates changed English docs to Chinese (`*.zh.md`) and opens a PR for review. A merged translation PR is what makes the Chinese content available on `main` |
+| `pdf-build.yml` | After `Auto Translate to Chinese` completes (`workflow_run`), push to `main` changing `docs/*.zh.md` or PDF build inputs, or manual | **Stage 2.** Runs a translation-settled gate: builds bilingual PDFs only when every English page has a `.zh.md` on `main` and no relevant translation PR is still open. Otherwise it defers. Opens or refreshes a single PDF PR on the stable `auto/pdf-update-latest` branch. Manual runs support `force=true` to override the gate |
 | `release.yml` | Push tag `v*`, or manual (enter tag name) | Builds bilingual PDFs and creates a **GitHub Release** with EN+ZH PDF attachments. On manual trigger it auto-creates the tag first |
-| `auto-translate.yml` | Push to `main` (docs/ changes) or manual | Incrementally translates changed English docs to Chinese (`*.zh.md`), opens a PR |
 | `ai-style-check.yml` | Manual only (choose target branch; optional PR number) | Runs AI writing-style review (Zhipu GLM-4-Flash) on demand and posts an advisory report as a PR comment (does not block) |
 | `ai-style-fix.yml` | Manual only (choose target branch) | AI auto-fixes English doc style issues, opens a PR for human review |
 | `lint.yml` | Any PR touching `docs/**`, `*.md`, `.vale.ini`, `.lycheeignore`, or manual | Deterministic gates in **advisory mode** (never block): **Vale** (Microsoft ruleset) annotates style issues on the diff; **Lychee** reports broken links in `docs/**/*.md` + `README.md` as a PR comment. `*.zh.md` is excluded from Vale (human-reviewed) |
