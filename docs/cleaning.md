@@ -99,9 +99,8 @@ Repeat the same procedure for each paper tray's pickup roller. Access may requir
 
 If toner powder spills during cartridge replacement:
 
-1. **Do not use a standard vacuum** — toner is fine and conductive; it can damage the vacuum and create a fire risk.
-2. Use a toner-specific vacuum (HEPA-filtered, anti-static) if available.
-3. Otherwise, use a dry lint-free cloth to gently lift the powder.
+1. Do not use a standard vacuum — The toner is conductive and can damage the vacuum and create a fire risk.
+2. Use a toner-specific vacuum (HEPA-filtered, anti-static) if available. Otherwise, use a dry lint-free cloth to gently lift the powder.
 4. For residual dust, use a slightly damp cloth (water only).
 5. Allow all surfaces to dry completely before closing the printer.
 6. Dispose of contaminated cloths per local regulations.
