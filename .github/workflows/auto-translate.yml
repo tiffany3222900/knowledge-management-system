@@ -4,7 +4,12 @@ on:
   push:
     branches: [main]
     paths:
+      # React to English docs only. A merged translation PR changes just
+      # *.zh.md files; re-running translation there would be a no-op that
+      # still emits a workflow_run event and queues a duplicate PDF build.
       - 'docs/**'
+      - '!docs/*.zh.md'
+      - '!docs/**/*.zh.md'
   workflow_dispatch:  # allow manual trigger
 
 permissions:

@@ -1,0 +1,218 @@
+name: Build PDF Manual
+
+# Stage 2 of the documentation pipeline.
+#
+# This workflow never runs in parallel with "Auto Translate to Chinese":
+#   * workflow_run fires once the translation workflow has finished, and
+#   * a push containing docs/*.zh.md fires when the translation PR is merged.
+# A gate job then confirms translations have actually settled on main
+# before any PDF is generated, so PDFs are never built against stale ZH.
+on:
+  workflow_run:
+    workflows: ["Auto Translate to Chinese"]
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      # A translation PR landing on main is the reliable "translation done"
+      # signal, even if the workflow_run event did not fire for the merge.
+      - 'docs/*.zh.md'
+      - 'docs/**/*.zh.md'
+      # PDF-only inputs: these never change English docs, so they need no
+      # translation step and can start stage 2 directly.
+      - 'mkdocs.yml'
+      - 'requirements.txt'
+      - 'export_pdf.py'
+      - '.github/workflows/pdf-build.yml'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Build PDFs even if a translation PR is still open
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# Serialize runs: a translation PR merge and a workflow_run completion can
+# arrive close together. Queuing (not cancelling) avoids duplicate PDF PRs.
+concurrency:
+  group: pdf-build
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    name: Verify translations have settled
+    # A failed translation run must not produce PDFs from half-updated content.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.check.outputs.ready }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0  # need HEAD~1 and per-file commit timestamps
+
+      - name: Check translation state
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORCE: ${{ github.event.inputs.force || 'false' }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          READY=true
+          REASON=""
+
+          # 1. Every English page must have a Chinese counterpart on main.
+          for en in docs/*.md; do
+            case "$en" in *.zh.md) continue ;; esac
+            zh="${en%.md}.zh.md"
+            if [ ! -f "$zh" ]; then
+              echo "::notice::Missing ZH translation on main: $zh"
+              READY=false
+              REASON="a .zh.md translation is missing"
+            fi
+          done
+
+          # 2. Any open translation PR means Chinese content has NOT landed on
+          #    main yet, regardless of how old that PR is. Defer until it is
+          #    merged (or closed). Do not try to guess PR freshness: a later
+          #    English edit could otherwise make an old PR look "expired" and
+          #    let a stale translation through into the PDFs.
+          PENDING=$(gh pr list --state open --json headRefName \
+            --jq '[.[] | select(.headRefName | startswith("auto/translate-"))] | length')
+          echo "Open auto-translate PRs: $PENDING"
+          if [ "$PENDING" -gt 0 ]; then
+            READY=false
+            REASON="a translation PR is still open and has not been merged into main"
+          fi
+
+          # 3. Race guard for direct pushes: if the same commit also touched
+          #    English docs, step 1 (translation) is still in flight and will
+          #    re-trigger this workflow via workflow_run. Never build now.
+          if [ "$EVENT" = "push" ]; then
+            EN_IN_HEAD=$(git diff --name-only HEAD~1 HEAD -- 'docs/*.md' ':(exclude)docs/*.zh.md' 2>/dev/null | wc -l)
+            echo "English docs changed in HEAD commit: $EN_IN_HEAD"
+            if [ "$EN_IN_HEAD" -gt 0 ]; then
+              READY=false
+              REASON="this push also changed English docs; waiting for the translation workflow"
+            fi
+          fi
+
+          if [ "$FORCE" = "true" ]; then
+            echo "::notice::Manual override requested (force=true)"
+            READY=true
+            REASON=""
+          fi
+
+          echo "ready=$READY" >> "$GITHUB_OUTPUT"
+          if [ "$READY" = "true" ]; then
+            echo "### Translations settled - building bilingual PDFs" >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### PDF build deferred"
+              echo "Reason: ${REASON}."
+              echo "This workflow runs again automatically after the translation PR is merged."
+              echo "Use \`workflow_dispatch\` with \`force=true\` to override."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  build-pdf:
+    name: Build PDF Manual
+    needs: gate
+    # Real gate: the whole job is skipped, not just one step.
+    if: needs.gate.outputs.ready == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright Chromium
+        run: playwright install chromium --with-deps
+
+      - name: Export PDF (EN)
+        run: python export_pdf.py en
+
+      - name: Export PDF (ZH)
+        run: python export_pdf.py zh
+
+      - name: Upload PDF artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: Printer_Manuals
+          path: |
+            Printer_Maintenance_Manual_EN.pdf
+            Printer_Maintenance_Manual_ZH.pdf
+          retention-days: 30
+
+      - name: Create or update PR for PDF update
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Reproducible exports: content-identical builds are byte-identical.
+          EN_CHANGED=false
+          ZH_CHANGED=false
+          git diff --quiet -- Printer_Maintenance_Manual_EN.pdf || EN_CHANGED=true
+          git diff --quiet -- Printer_Maintenance_Manual_ZH.pdf || ZH_CHANGED=true
+
+          if [ "$EN_CHANGED" = false ] && [ "$ZH_CHANGED" = false ]; then
+            echo "No changes to PDFs, skipping."
+            exit 0
+          fi
+
+          if [ "$EN_CHANGED" = true ] && [ "$ZH_CHANGED" = true ]; then
+            TITLE="[CI] Update Printer Manual PDFs (EN+ZH)"
+            CHANGED_FILES="Printer_Maintenance_Manual_EN.pdf, Printer_Maintenance_Manual_ZH.pdf"
+            git add Printer_Maintenance_Manual_EN.pdf Printer_Maintenance_Manual_ZH.pdf
+          elif [ "$EN_CHANGED" = true ]; then
+            TITLE="[CI] Update Printer Manual PDF (EN)"
+            CHANGED_FILES="Printer_Maintenance_Manual_EN.pdf"
+            git add Printer_Maintenance_Manual_EN.pdf
+          else
+            TITLE="[CI] Update Printer Manual PDF (ZH)"
+            CHANGED_FILES="Printer_Maintenance_Manual_ZH.pdf"
+            git add Printer_Maintenance_Manual_ZH.pdf
+          fi
+
+          # Stable branch: force-push refresh keeps ONE open PDF PR instead of
+          # stacking timestamped PRs whose content becomes outdated.
+          BRANCH="auto/pdf-update-latest"
+          git checkout -B "$BRANCH"
+          # Do NOT add [skip ci]: it suppresses the PR Build Check workflow,
+          # which is a required status check on main.
+          git commit -m "docs: update generated PDFs"
+          git push --force origin "$BRANCH"
+
+          printf -v BODY "Automated PDF update(s) generated by the translation -> PDF pipeline.\n\n**Changed files:** %s\n\nTranslations are verified in sync before this PR is created. Please review and merge." "$CHANGED_FILES"
+
+          PR_NUMBER=$(gh pr list --state open --json number,headRefName \
+            --jq ".[] | select(.headRefName == \"$BRANCH\") | .number" | head -n 1)
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr edit "$PR_NUMBER" --title "$TITLE" --body "$BODY"
+            echo "Refreshed existing PDF PR #$PR_NUMBER"
+          else
+            gh pr create --title "$TITLE" --body "$BODY" --base main --head "$BRANCH"
+          fi
