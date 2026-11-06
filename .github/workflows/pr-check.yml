@@ -1,13 +1,11 @@
 name: PR Build Check
 
 on:
+  # No path filter on purpose: this job is a required status check, so it must
+  # report on every PR to main. A path-filtered workflow would never run for PRs
+  # outside those paths and would leave the merge permanently blocked.
   pull_request:
     branches: [main]
-    paths:
-      - 'docs/**'
-      - 'mkdocs.yml'
-      - 'requirements.txt'
-      - '.github/workflows/pr-check.yml'
   workflow_dispatch:
 
 permissions:
