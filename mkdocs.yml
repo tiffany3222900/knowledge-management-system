@@ -113,6 +113,9 @@ nav:
   - Download PDF (EN): https://github.com/tiffany3222900/knowledge-management-system/raw/main/Printer_Maintenance_Manual_EN.pdf
   - Download PDF (ZH): https://github.com/tiffany3222900/knowledge-management-system/raw/main/Printer_Maintenance_Manual_ZH.pdf
 
+extra_css:
+  - stylesheets/extra.css
+
 extra:
   social:
     - icon: fontawesome/brands/github
