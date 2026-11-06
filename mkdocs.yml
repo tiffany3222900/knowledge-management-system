@@ -66,6 +66,7 @@ plugins:
             Troubleshooting: 故障排除
             Safety: 安全指南
             FAQ: 常见问题
+            Glossary: 术语表
             Download PDF (EN): 下载 PDF（英文版）
             Download PDF (ZH): 下载 PDF（中文版）
   - print-site:
@@ -108,6 +109,7 @@ nav:
   - Troubleshooting: troubleshooting.md
   - Safety: safety.md
   - FAQ: faq.md
+  - Glossary: glossary.md
   - Download PDF (EN): https://github.com/tiffany3222900/knowledge-management-system/raw/main/Printer_Maintenance_Manual_EN.pdf
   - Download PDF (ZH): https://github.com/tiffany3222900/knowledge-management-system/raw/main/Printer_Maintenance_Manual_ZH.pdf
 
