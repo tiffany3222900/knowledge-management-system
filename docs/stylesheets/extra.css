@@ -1,0 +1,43 @@
+/* Compact top navigation tabs.
+   Material limits the tab row to the 61rem content grid and hides it below
+   1220px, which clips the last tabs once the manual has more than ~10 sections.
+   These rules keep every section label visible on screen. */
+
+/* Let the tab row span the header instead of the narrow content grid. */
+.md-tabs > .md-grid {
+  max-width: 100%;
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+}
+
+/* Smaller labels and tighter spacing between tabs. */
+.md-tabs__link {
+  font-size: 0.62rem;
+}
+
+.md-tabs__item {
+  padding-right: 0.35rem;
+  padding-left: 0.35rem;
+}
+
+/* Keep the tab bar on narrow screens. The list already scrolls horizontally
+   (Material sets overflow:auto and hides the scrollbar), so nothing is lost. */
+@media screen and (max-width: 76.234375em) {
+  .md-tabs {
+    display: block;
+  }
+}
+
+.md-tabs__list {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.md-tabs__list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Dark palette: keep the smaller labels legible. */
+[data-md-color-scheme="slate"] .md-tabs__link {
+  letter-spacing: 0.01em;
+}
