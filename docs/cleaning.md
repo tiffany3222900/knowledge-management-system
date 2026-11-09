@@ -2,7 +2,7 @@
 
 ## Overview
 
-Regular cleaning helps prevent common printer problems such as paper jams, streaky prints, feed errors, and premature component wear. This section provides all cleaning procedures, from basic exterior wiping to internal component care.
+Regular cleaning prevents many common printer problems, including paper jams, streaky prints, feed errors, and early component wear. This section covers every cleaning procedure, from wiping the exterior to caring for internal parts.
 
 !!! danger "Before you begin"
     1. Power off the printer using the power button.
@@ -25,7 +25,7 @@ Regular cleaning helps prevent common printer problems such as paper jams, strea
 6. Plug back in and power on.
 
 !!! caution "Never spray directly"
-    Never spray cleaning solution directly onto the printer. Always apply to the cloth first, and ensure the cloth is damp, not dripping.
+    Never spray cleaning solution onto the printer itself. Apply it to the cloth first, and keep the cloth damp rather than wet.
 
 ---
 
@@ -50,7 +50,7 @@ Regular cleaning helps prevent common printer problems such as paper jams, strea
 5. Allow all components to dry completely (5 minutes) before closing.
 
 !!! tip "Diagnostic trick"
-    If scanned pages have a vertical line in the same position every time, the cause is almost always dirt on the ADF glass strip, not the flatbed glass. Clean the narrow glass strip first.
+    When a vertical line appears in the same place on every scanned page, dirt on the ADF glass strip is the usual cause, not the flatbed glass. Clean the narrow glass strip first.
 
 ---
 
@@ -58,7 +58,7 @@ Regular cleaning helps prevent common printer problems such as paper jams, strea
 
 ### Frequency: Monthly or when misfeeds increase
 
-Dirty feed rollers are the #1 cause of paper jams and multi-feeds.
+Dirty feed rollers cause more paper jams and multi-feeds than any other single factor.
 
 1. Power off, unplug, and open the paper cassette.
 2. Locate the feed roller inside the printer, above where the paper sits.

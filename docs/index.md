@@ -1,15 +1,15 @@
 # Printer Maintenance Manual
 
-**A practical guide to keeping your office printers reliable, efficient, and long-lasting.**
+**A practical guide to reliable, efficient, and long-lasting office printers.**
 
 ---
 
 ## Welcome
 
-This manual provides standardized procedures for the daily operation, maintenance, and troubleshooting of office printers. Consistently following these guidelines helps reduce downtime, extend hardware lifespan, improve print quality, and lower the total cost of ownership.
+This manual sets out standard procedures for the daily operation, maintenance, and troubleshooting of office printers. Follow these guidelines consistently to reduce downtime, extend hardware life, improve print quality, and lower total cost of ownership.
 
 !!! info "Audience"
-    This document is intended for IT support staff, facility managers, and designated printer operators. End users may also refer to the **Paper Handling** and **Troubleshooting** sections for common issues.
+    This manual is written for IT support staff, facility managers, and designated printer operators. End users can also consult the **Paper Handling** and **Troubleshooting** sections for common problems.
 
 ---
 
@@ -30,17 +30,17 @@ This manual provides standardized procedures for the daily operation, maintenanc
 
 ## Key Principles
 
-1. **Preventive over reactive** — routine maintenance costs far less than emergency repairs.
-2. **Clean hands, clean machine** — always power off and unplug before internal cleaning.
-3. **Use approved supplies** — third-party toner and paper can cause damage and void warranties.
-4. **Log every action** — record maintenance in the service log for trend analysis.
-5. **When in doubt, escalate** — do not disassemble components beyond this manual's scope.
+1. **Preventive over reactive** — scheduled maintenance costs far less than emergency repairs.
+2. **Clean hands, clean machine** — switch off and unplug the printer before cleaning internal parts.
+3. **Use approved supplies** — third-party toner and paper can damage the device and void its warranty.
+4. **Log every action** — record each task in the service log so you can spot trends over time.
+5. **When in doubt, escalate** — never disassemble components that this manual does not cover.
 
 ---
 
 ## Service Log Template
 
-Record each maintenance event in the printer service log:
+Use the template below to record every maintenance event in the printer service log:
 
 | Date | Device ID | Performed by | Action | Parts replaced | Meter reading | Next due |
 |------|-----------|--------------|--------|----------------|---------------|----------|
