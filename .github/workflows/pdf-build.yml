@@ -35,6 +35,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write  # requeue PR checks parked as action_required
 
 # Serialize runs: a translation PR merge and a workflow_run completion can
 # arrive close together. Queuing (not cancelling) avoids duplicate PDF PRs.
@@ -215,4 +216,14 @@ jobs:
             echo "Refreshed existing PDF PR #$PR_NUMBER"
           else
             gh pr create --title "$TITLE" --body "$BODY" --base main --head "$BRANCH"
+          fi
+
+          # PRs opened/refreshed with GITHUB_TOKEN have their pull_request
+          # runs parked as action_required (no check-run), leaving the
+          # required status check missing and the PR BLOCKED. Remediate now.
+          HEAD_SHA=$(git rev-parse HEAD)
+          if [ -f .github/scripts/requeue_pr_checks.py ]; then
+            python .github/scripts/requeue_pr_checks.py "$HEAD_SHA"
+          else
+            echo "::warning::requeue_pr_checks.py not found on main; PR checks may need a manual rerun"
           fi
