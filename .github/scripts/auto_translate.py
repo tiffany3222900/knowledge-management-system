@@ -125,6 +125,31 @@ def get_changed_english_files():
     return english
 
 
+def requeue_pr_check_runs():
+    """Unblock the PR we just opened.
+
+    PRs created with GITHUB_TOKEN have their pull_request workflows parked as
+    ``action_required`` with no check-run, which leaves the required status
+    check missing and the PR BLOCKED. Requeue them right away so the PR can
+    actually be merged. This is best-effort and never fails the job.
+    """
+    try:
+        head_sha = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True
+        ).strip()
+    except Exception as exc:
+        print(f"::warning::Could not resolve HEAD SHA: {exc}")
+        return
+
+    script = os.path.join(".github", "scripts", "requeue_pr_checks.py")
+    if not os.path.exists(script):
+        print(f"::warning::{script} not found; skipping PR check requeue")
+        return
+
+    print(f"Checking pull_request workflow runs for {head_sha[:8]} ...")
+    subprocess.run([sys.executable, script, head_sha], check=False)
+
+
 def main():
     changed = get_changed_english_files()
 
@@ -248,6 +273,7 @@ def main():
         if resp.status_code == 201:
             pr_url = resp.json()["html_url"]
             print(f"PR created: {pr_url}")
+            requeue_pr_check_runs()
         else:
             print(f"Failed to create PR: {resp.status_code} {resp.text[:200]}")
     else:
