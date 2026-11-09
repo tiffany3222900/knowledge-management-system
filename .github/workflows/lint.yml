@@ -23,8 +23,13 @@ jobs:
 
       - name: Run Vale
         uses: vale-cli/vale-action@v3.0.0
+        # Advisory check: fail_on_error=false only covers Vale findings.
+        # A toolchain/download failure (e.g. HTTP 504 fetching a release)
+        # would otherwise fail the job even though no document was linted.
+        continue-on-error: true
         with:
           files: docs
+          version: 3.26.0   # pinned: skip the 'latest' redirect lookup
           fail_on_error: false   # advisory mode: annotate, never block
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
