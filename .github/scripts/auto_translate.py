@@ -26,20 +26,24 @@ The English source has been UPDATED. Update the existing Chinese translation to 
 
 ## Rules:
 1. Translate all NEW or CHANGED English content into Simplified Chinese.
-2. For UNCHANGED content, keep the existing Chinese translation EXACTLY as-is —
-   do not reword, do not improve style, do not change terminology (e.g. keep
-   "墨粉" if the existing translation uses it; only change it if the English
-   source itself changed meaning).
-3. If English content was removed, remove the corresponding Chinese text.
-4. Preserve ALL Markdown syntax exactly: # headings, **bold**, *italic*,
+2. When an English sentence has been REWORDED, rewrite the corresponding
+   Chinese sentence so it reflects the new wording, even when the underlying
+   meaning is unchanged. NEVER return the old Chinese verbatim for a sentence
+   whose English source changed — a style edit is still a translation task.
+3. For English content that did NOT change, keep the existing Chinese
+   translation EXACTLY as-is. Keep terminology consistent (e.g. keep
+   "墨粉" if the existing translation uses it).
+4. If English content was removed, remove the corresponding Chinese text.
+5. Preserve ALL Markdown syntax exactly: # headings, **bold**, *italic*,
    `inline code`, ```code blocks```, [links](url), !!! admonitions, tables,
    numbered/bullet lists, horizontal rules.
-5. Do NOT translate: code block contents, URLs, file paths, shell commands,
+6. Do NOT translate: code block contents, URLs, file paths, shell commands,
    brand names (HP, Brother, Canon), model numbers, technical acronyms
    (CPU, USB, PDF, LCD), MkDocs directives.
-6. Admonition type keywords (warning, caution, note, info, tip) stay in
+7. Admonition type keywords (warning, caution, note, info, tip) stay in
    English; only translate the title and body text.
-7. Output ONLY the updated Markdown. No explanations, no wrapping code fences.
+8. Output ONLY the COMPLETE updated Markdown file. No explanations, no
+   wrapping code fences, no diff or summary of what you changed.
 """
 
 
@@ -60,7 +64,11 @@ def call_ai_translate(filepath, content, existing_zh=None):
     if existing_zh:
         user_content = (
             f"Update the Chinese translation to match this English file "
-            f"({filepath}). Keep unchanged parts exactly as they are.\n\n"
+            f"({filepath}). The English text has been revised: rewrite every "
+            f"Chinese sentence whose English source changed, INCLUDING pure "
+            f"wording or style edits. Keep only the paragraphs whose English "
+            f"source is untouched exactly as they are. Return the complete "
+            f"updated Chinese document.\n\n"
             f"--- NEW ENGLISH ---\n{content}\n---\n\n"
             f"--- EXISTING CHINESE ---\n{existing_zh}\n---"
         )
@@ -116,6 +124,43 @@ def structural_signature(text):
         sum(1 for line in lines if line.startswith("### ")),
         sum(1 for line in lines if line.startswith("|")),
     )
+
+
+def normalize_content(text):
+    """Whitespace/layout-insensitive view of the *translatable* prose.
+
+    Fenced code blocks, inline code, link targets, horizontal rules and blank
+    lines are ignored: editing those does not require a Chinese wording change,
+    and a model that only trims a trailing ``---`` must not be mistaken for a
+    successful translation. Used both for EN (did the source really change?)
+    and ZH (did the translation really change?).
+    """
+    lines = []
+    in_code = False
+    for raw in text.splitlines():
+        if raw.lstrip().startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        line = re.sub(r"`[^`]*`", "", raw)
+        line = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", line)
+        line = line.strip()
+        if not line or re.fullmatch(r"[-*_]{3,}", line):
+            continue
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def get_previous_english(filepath):
+    """Return the English page as of HEAD~1, or None when history is missing."""
+    result = subprocess.run(
+        ["git", "show", f"HEAD~1:{filepath}"],
+        capture_output=True, text=True,
+    )
+    if result.returncode != 0:
+        return None
+    return result.stdout
 
 
 def get_changed_english_files():
@@ -213,11 +258,40 @@ def main():
                 failures.append((filepath, message))
                 continue
 
-            # Skip if translation is identical to existing
-            if existing_zh is not None:
-                if existing_zh.strip() == chinese.strip():
-                    print(f"    -> unchanged, skipping {zh_path}")
+            # A translation that only differs in blank lines, trailing
+            # separators or code/link markup carries no new Chinese wording.
+            zh_unchanged = (
+                existing_zh is not None
+                and normalize_content(existing_zh) == normalize_content(chinese)
+            )
+            if zh_unchanged:
+                previous_en = get_previous_english(filepath)
+                if previous_en is None:
+                    en_state = "unknown"
+                elif normalize_content(previous_en) != normalize_content(english):
+                    en_state = "changed"
+                else:
+                    en_state = "unchanged"
+
+                # P1 guard: English prose changed but the model handed back
+                # the old Chinese. Pure wording edits do not alter the
+                # structural signature, so the guard above cannot catch this.
+                if en_state == "changed":
+                    message = (
+                        "stale translation: English prose changed but Chinese "
+                        "output matches the existing translation"
+                    )
+                    print(f"    ERROR: {message} ({filepath})")
+                    failures.append((filepath, message))
                     continue
+
+                reason = (
+                    "no substantive English prose change"
+                    if en_state == "unchanged"
+                    else "HEAD~1 history unavailable"
+                )
+                print(f"    -> unchanged, skipping {zh_path} ({reason})")
+                continue
 
             with open(zh_path, "w", encoding="utf-8") as f:
                 f.write(chinese)
@@ -233,12 +307,15 @@ def main():
 
     # An incomplete translation must be loud. A failed upstream run makes the
     # workflow_run gate skip stage 2 entirely, so no PDF is built from stale ZH.
-    structural_failures = [
-        msg for _, msg in failures if msg.startswith("structural mismatch")
+    blocking_failures = [
+        msg for _, msg in failures
+        if msg.startswith("structural mismatch")
+        or msg.startswith("stale translation")
     ]
-    if structural_failures:
+    if blocking_failures:
         print("::error::Refusing to publish an incomplete translation "
-              f"({len(structural_failures)} file(s) failed the structural guard).")
+              f"({len(blocking_failures)} file(s) failed the structural/staleness "
+              "guards). Rerun the translation or update the Chinese page manually.")
         sys.exit(1)
 
     if failures and not translated:
