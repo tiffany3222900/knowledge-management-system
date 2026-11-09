@@ -2,13 +2,13 @@
 
 ## Overview
 
-Before performing any maintenance, familiarize yourself with the printer's main components, control panel indicators, and the tools required for routine tasks. This section prepares you for the procedures described throughout this manual.
+Learn the printer's main components, control panel indicators, and the tools needed for routine tasks before you start any maintenance. This section gives you the background for every procedure in the rest of the manual.
 
 ---
 
 ## Printer Components
 
-Understanding the physical layout is essential for safe and efficient maintenance.
+Knowing where each part sits makes maintenance both safer and quicker.
 
 ### Front View
 
@@ -61,7 +61,7 @@ Understanding the physical layout is essential for safe and efficient maintenanc
 
 ## Required Tools and Supplies
 
-Keep the following items available at all times:
+Keep these supplies stocked and within reach at all times:
 
 - [ ] Lint-free, static-free microfiber cloths
 - [ ] Isopropyl alcohol (90%+ concentration)
@@ -82,7 +82,7 @@ Keep the following items available at all times:
 
 ## First-Time Setup Checklist
 
-When a new printer is deployed, complete the following before releasing it to users:
+Finish the steps below before you hand a newly deployed printer over to its users:
 
 1. **Unbox and inspect** — verify all accessories are present and there is no shipping damage.
 2. **Remove all shipping locks** — pull out all orange/red tape, protective clips, and drum locks.
@@ -118,7 +118,7 @@ Maintain the following conditions for optimal printer performance:
 - **Power**: stable AC supply with proper grounding; use a surge protector
 
 !!! tip "Pro tip"
-    Keep printers away from carpeted areas if possible. Static electricity from carpet can cause paper feed issues and damage sensitive components.
+    Place printers on hard flooring where possible. Static discharge from carpet can disturb paper feeding and harm sensitive electronics.
 
 ---
 
