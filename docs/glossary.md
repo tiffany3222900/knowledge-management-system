@@ -36,6 +36,7 @@ Definitions describe general office printing equipment. Model-specific part name
 | **Automatic document feeder (ADF)** | Tray that feeds originals across the scanner glass for copying or scanning, so that pages do not need to be placed one at a time. |
 | **Output tray** | Bin that receives finished pages. An overfull tray can cause jams at the exit. |
 | **Bypass tray / multi-purpose tray** | Manual feed tray for single sheets, envelopes, and non-standard media. Keep it free of dust and close it fully to avoid false jam reports. |
+| **Finisher / staple unit** | Optional output accessory that sorts, staples, or hole-punches completed sets. Refill staples and empty the trim tray before they fill, or jobs will stop partway through. |
 
 ---
 
