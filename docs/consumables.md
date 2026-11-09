@@ -2,7 +2,7 @@
 
 ## Overview
 
-Consumables include toner cartridges, ink cartridges, drum units, waste toner containers, maintenance kits, and paper. Proper management helps maintain print quality, reduces the risk of unexpected downtime, and extends the useful life of each component.
+Toner, ink, drums, waste toner containers, maintenance kits, and paper all count as consumables. Tracking them carefully keeps print quality steady, avoids unplanned downtime, and lets each component reach its full rated life.
 
 ---
 
@@ -47,7 +47,7 @@ Order → Receive → Store → Install → Monitor → Replace → Dispose
 9. Dispose of the old cartridge through the manufacturer's recycling program.
 
 !!! tip "Extend toner life"
-    When the "Toner Low" message first appears, remove the cartridge, shake it gently side to side five times, and reinstall it. This can yield an additional 50–200 pages and provides time to arrange a replacement.
+    The first time "Toner Low" appears, take out the cartridge, rock it gently from side to side five times, and put it back. This often yields another 50–200 pages and gives you time to order a replacement.
 
 ### Toner Storage
 
@@ -63,7 +63,7 @@ Order → Receive → Store → Install → Monitor → Replace → Dispose
 
 ### What Is a Drum?
 
-The drum is the photosensitive cylinder that transfers the toner image onto the paper. It is a wear item with a rated lifespan of approximately 12,000–60,000 pages, depending on the model.
+The drum is a photosensitive cylinder that moves the toner image onto the paper. It wears down with use, so expect a rated life of roughly 12,000–60,000 pages, depending on the model.
 
 ### When to Replace
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Consistent daily and weekly checks are the most effective way to prevent printer failures and maintain print quality. This checklist should be performed by the designated printer operator at the start and end of each business day.
+Daily and weekly checks catch most printer faults before they interrupt anyone's work. The designated printer operator should work through this checklist at the start and end of every business day.
 
 ---
 
@@ -45,13 +45,13 @@ Perform these tasks before the first print job of the day.
 - [ ] Check for no paper jams during the test print
 
 !!! note "Record the meter reading"
-    Every morning, record the total page count (meter reading) in the service log. This helps track usage patterns and schedule preventive maintenance.
+    Log the total page count (meter reading) each morning. The running total shows how the device is used and when preventive maintenance is due.
 
 ---
 
 ## Daily End-of-Day Checklist
 
-Perform these tasks after the last print job of the day.
+Complete these tasks once the last print job of the day has finished.
 
 - [ ] Empty the output tray and file pages
 - [ ] Clear any pending or stuck print jobs in the queue
@@ -107,7 +107,7 @@ Perform these tasks every Friday (or the last business day of the week).
 - [ ] Calibrate color registration (color printers)
 
 !!! warning "Qualified technician only"
-    Fuser replacement, transfer belt replacement, and internal lubrication should be performed by a qualified service technician. Do not attempt these tasks unless trained.
+    Only a qualified service technician should replace the fuser or transfer belt or lubricate internal parts. Do not attempt any of these tasks without training.
 
 ---
 
