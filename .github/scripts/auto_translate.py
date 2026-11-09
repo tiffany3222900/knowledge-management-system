@@ -102,6 +102,22 @@ def call_ai_translate(filepath, content, existing_zh=None):
     return result.strip() + "\n"
 
 
+def structural_signature(text):
+    """Count the Markdown constructs a faithful translation must preserve.
+
+    A translation changes words, not structure. If the model returns the old
+    Chinese verbatim after an English table row was added, the counts differ
+    and we can refuse to publish an incomplete translation instead of letting
+    it look like "no translation needed".
+    """
+    lines = text.splitlines()
+    return (
+        sum(1 for line in lines if line.startswith("## ")),
+        sum(1 for line in lines if line.startswith("### ")),
+        sum(1 for line in lines if line.startswith("|")),
+    )
+
+
 def get_changed_english_files():
     """Return list of changed English .md files (excluding .zh.md) from latest commit."""
     result = subprocess.run(
@@ -183,6 +199,20 @@ def main():
 
             chinese = call_ai_translate(filepath, english, existing_zh)
 
+            # Structural guard: the model sometimes returns the existing
+            # Chinese verbatim even when a new English row/section was added.
+            # Refuse that output instead of silently shipping a stale ZH page.
+            en_sig = structural_signature(english)
+            zh_sig = structural_signature(chinese)
+            if en_sig != zh_sig:
+                message = (
+                    f"structural mismatch: EN {en_sig} vs ZH {zh_sig} - "
+                    "translation output did not preserve the English structure"
+                )
+                print(f"    ERROR: {message}")
+                failures.append((filepath, message))
+                continue
+
             # Skip if translation is identical to existing
             if existing_zh is not None:
                 if existing_zh.strip() == chinese.strip():
@@ -200,6 +230,16 @@ def main():
             failures.append((filepath, str(e)))
 
         time.sleep(1)  # rate limit
+
+    # An incomplete translation must be loud. A failed upstream run makes the
+    # workflow_run gate skip stage 2 entirely, so no PDF is built from stale ZH.
+    structural_failures = [
+        msg for _, msg in failures if msg.startswith("structural mismatch")
+    ]
+    if structural_failures:
+        print("::error::Refusing to publish an incomplete translation "
+              f"({len(structural_failures)} file(s) failed the structural guard).")
+        sys.exit(1)
 
     if failures and not translated:
         print(f"\nAll {len(failures)} file(s) failed.")
