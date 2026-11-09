@@ -70,7 +70,10 @@ jobs:
           READY=true
           REASON=""
 
-          # 1. Every English page must have a Chinese counterpart on main.
+          # 1. Every English page must have a Chinese counterpart on main,
+          #    and the two must share the same structural skeleton. A missing
+          #    .zh.md is obvious; a translation that silently dropped a table
+          #    row is not, and would silently ship a stale ZH PDF.
           for en in docs/*.md; do
             case "$en" in *.zh.md) continue ;; esac
             zh="${en%.md}.zh.md"
@@ -78,7 +81,18 @@ jobs:
               echo "::notice::Missing ZH translation on main: $zh"
               READY=false
               REASON="a .zh.md translation is missing"
+              continue
             fi
+
+            for marker in '## ' '### ' '|'; do
+              EN_COUNT=$(grep -c "^${marker}" "$en" || true)
+              ZH_COUNT=$(grep -c "^${marker}" "$zh" || true)
+              if [ "$EN_COUNT" != "$ZH_COUNT" ]; then
+                echo "::notice::EN/ZH structure mismatch in $en (${marker}: EN $EN_COUNT, ZH $ZH_COUNT)"
+                READY=false
+                REASON="EN/ZH structure drift - a translation is missing content"
+              fi
+            done
           done
 
           # 2. Any open translation PR means Chinese content has NOT landed on
