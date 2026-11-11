@@ -2,7 +2,7 @@
 
 ## Overview
 
-Printer maintenance involves electrical, thermal, mechanical, and chemical hazards. Following these safety guidelines protects both personnel and equipment. All maintenance personnel must read and understand this section before performing any procedure in this manual.
+Printer maintenance involves electrical, thermal, mechanical, and chemical hazards. Following these safety guidelines protects both personnel and equipment. All maintenance personnel must read and understand this section before performing any procedure in this manual. Keep the safety data sheet for any cleaning agent you use on site, and stop work immediately if an unfamiliar odor, smoke, or a damaged cable appears.
 
 ---
 
@@ -46,7 +46,7 @@ Printer maintenance involves electrical, thermal, mechanical, and chemical hazar
 
 The fuser is the hottest component in a laser printer, operating at **180–220 °C (356–428 °F)**.
 
-- Always wait 30 minutes after powering off before touching the fuser area.
+- Always wait 30 minutes after powering off before touching the fuser area. Unplug the printer as well; power switches alone do not isolate the high-voltage supply.
 - Even after 30 minutes, the fuser may still be warm — touch cautiously.
 - Use the designated handles or levers; never grab the fuser rollers directly.
 - If you smell burning or see smoke, power off immediately, unplug, and evacuate the area if necessary.
@@ -73,7 +73,7 @@ The fuser is the hottest component in a laser printer, operating at **180–220 
 
 Printers contain gears, rollers, belts, and motors that can pinch fingers or pull in jewelry, hair, or clothing.
 
-- **Never** reach into the printer while it is powered on and operating.
+- **Never** reach into the printer while it is powered on and operating. Wait for all rollers and fans to stop, since some models keep them running briefly after the display goes dark.
 - Remove rings, watches, bracelets, and dangling jewelry before maintenance.
 - Tie back long hair.
 - Do not wear loose sleeves or scarves near moving parts.
@@ -104,7 +104,7 @@ Toner is a fine plastic powder (polyester or styrene-acrylate) with pigment. Whi
 
 ### Toner Spill Response
 
-1. **Do not use a standard vacuum** — it can aerosolize the powder and damage the vacuum motor.
+1. **Do not use a standard vacuum** — it can aerosolize the powder and damage the vacuum motor. Keep bystanders away from the spill area until the powder has been collected.
 2. Use a toner-specific HEPA vacuum if available.
 3. Otherwise, use a dry lint-free cloth to gently lift the powder (do not rub — this grinds it in).
 4. For residual dust, use a slightly damp cloth (water only).

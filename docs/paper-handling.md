@@ -2,7 +2,7 @@
 
 ## Overview
 
-Paper jams are the most common printer issue. Most jams are caused by improper paper loading, worn rollers, or damaged paper. This section covers correct paper loading procedures and step-by-step jam removal for all common jam locations.
+Paper jams are the most common printer issue. Most jams are caused by improper paper loading, worn rollers, or damaged paper. This section covers correct paper loading procedures and step-by-step jam removal for all common jam locations. Record every jam in the service log; a location that repeats more than twice in a week points to a worn part rather than operator error.
 
 ---
 
@@ -11,7 +11,7 @@ Paper jams are the most common printer issue. Most jams are caused by improper p
 ### Standard Procedure
 
 1. Remove the paper cassette from the printer by pulling it straight out.
-2. Fan the paper stack — hold the stack at both ends and flex it, then fan the pages. This separates sheets and reduces static.
+2. Fan the paper stack — hold the stack at both ends and flex it, then fan the pages. This separates sheets and reduces static. Do this even for a freshly opened ream, because factory-compressed sheets tend to feed together.
 3. Tap the stack on a flat surface to align the edges neatly.
 4. Load the paper into the cassette with the print side facing down (check the cassette label for orientation).
 5. Adjust the paper guides — slide the side and end guides until they touch the paper stack snugly.
@@ -22,7 +22,7 @@ Paper jams are the most common printer issue. Most jams are caused by improper p
 8. Confirm paper size on the control panel if prompted.
 
 !!! tip "The golden rule"
-    If the printer has a paper size sensor, always verify that the displayed size matches the actual paper. A mismatch causes 90% of "phantom" jams and misfeeds.
+    If the printer has a paper size sensor, always verify that the displayed size matches the actual paper. A mismatch causes 90% of "phantom" jams and misfeeds. Also confirm the driver's paper type setting, since heavy or label media needs a different fuser temperature.
 
 ### Loading Envelopes, Labels, and Special Media
 
@@ -65,7 +65,7 @@ Paper jams can occur in several areas. The printer's control panel usually displ
     1. Power off the printer before opening covers.
     2. The fuser area is extremely hot — wait 30 minutes if accessing the rear.
     3. Pull paper slowly and steadily in the direction of normal paper travel. Never yank.
-    4. If the paper tears, remove every scrap — even a tiny piece will cause another jam.
+    4. If the paper tears, remove every scrap — even a tiny piece will cause another jam. Reassemble any covers you opened only after confirming the path is clear.
 
 ### Step-by-Step
 

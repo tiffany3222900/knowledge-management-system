@@ -4,7 +4,7 @@
 
 ### Q: How often should I clean my printer?
 
-**A:** Exterior and scanner glass should be cleaned weekly. Internal components (feed rollers, paper path) should be cleaned monthly. A full deep clean is recommended quarterly. High-volume printers (5,000+ pages/month) may require more frequent cleaning.
+**A:** Exterior and scanner glass should be cleaned weekly. Internal components (feed rollers, paper path) should be cleaned monthly. A full deep clean is recommended quarterly. High-volume printers (5,000+ pages/month) may require more frequent cleaning. Clean immediately, regardless of the schedule, after any toner spill or a jam that leaves paper scraps in the path.
 
 ### Q: Can you use third-party (compatible) toner cartridges?
 
@@ -17,7 +17,7 @@
 
 ### Q: How long does a toner cartridge last?
 
-**A:** Toner yield is rated at 5% page coverage (a standard text page). A typical 2,000-page cartridge will print approximately 2,000 text pages, but only 400–800 pages if printing full-page graphics or photos. Actual yield depends heavily on content density.
+**A:** Toner yield is rated at 5% page coverage (a standard text page). A typical 2,000-page cartridge will print approximately 2,000 text pages, but only 400–800 pages if printing full-page graphics or photos. Actual yield depends heavily on content density. Check the supplies status page rather than the toner LED alone, and record the meter reading at each replacement to compare real yield against the rating.
 
 ### Q: Should I turn the printer off at night?
 
@@ -71,7 +71,7 @@
 **A:** Recurring jams usually have one of these root causes:
 1. **Worn pickup rollers** — the most common cause. Clean with alcohol; if the surface is smooth/glazed, replace them.
 2. **Damp paper** — paper absorbs moisture from the air. Store in a sealed package and fan before loading.
-3. **Torn paper scrap** — a tiny piece left from a previous jam causes repeated jams. Inspect the entire paper path with a flashlight.
+3. **Torn paper scrap** — a tiny piece left from a previous jam causes repeated jams. Inspect the entire paper path with a flashlight, including the rear fuser exit and the duplex path.
 4. **Overloaded cassette** — do not exceed the fill line.
 5. **Wrong paper guides** — guides must be snug, not loose or too tight.
 6. **Worn separation pad** — causes multi-feeds and jams.
@@ -146,7 +146,7 @@ Use only clean, unused paper for laser printing.
 
 **A:** Yes, if the printer supports it:
 - **Apple AirPrint**: Most modern printers support this natively — no app needed.
-- **Google Cloud Print**: Deprecated as of 2020; use manufacturer apps instead.
+- **Google Cloud Print**: Shut down in 2021 and no longer available; use Mopria or the manufacturer app instead.
 - **Manufacturer apps**: HP Smart, Canon PRINT, Brother iPrint&Scan, etc.
 - **Mopria**: Android standard for printing to Mopria-certified printers.
 Ensure the mobile device and printer are on the same Wi-Fi network.
